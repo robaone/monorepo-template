@@ -1,10 +1,6 @@
 {
   "name": "monorepo-template",
-<<<<<<< release/v0.0.3
   "version": "0.0.3",
-=======
-  "version": "0.0.2",
->>>>>>> main
   "description": "Monorepo configuration and tooling",
   "license": "UNLICENSED",
   "dependencies": {
