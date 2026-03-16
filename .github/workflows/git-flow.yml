@@ -148,14 +148,6 @@ jobs:
       - name: Announce Deployment
         run: echo "This will be deployed"
 
-  wizcli-scanner:
-    if: |
-      false && (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test'))
-    uses: YOUR_ORG/github-actions/.github/workflows/wizcli-scanner.yml@v2
-    secrets:
-      WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-      WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-
   static-analysis:
     name: Static Analysis
     needs: [initialize]
