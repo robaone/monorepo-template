@@ -752,6 +752,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Check required secrets
+        run: |
+          if [ -z "$LLM_API_TOKEN" ]; then
+            echo "::error::Missing required secret: LLM_API_TOKEN. Go to Settings > Secrets and variables > Actions and add LLM_API_TOKEN with your Gemini API key."
+            exit 1
+          fi
+        env:
+          LLM_API_TOKEN: ${{ secrets.LLM_API_TOKEN }}
       - name: Generate PR Description
         uses: virdocssoftware/github-actions/.github/actions/auto-pr-description@main
         with:
