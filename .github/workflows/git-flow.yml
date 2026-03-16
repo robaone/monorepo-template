@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 0
       - name: Cancel Previous Runs
         if: ${{ github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/main' }}
-        uses: styfle/cancel-workflow-action@85880fa0301c86cca9da44039ee3bb12d3bedbfa # 0.12.1
+        uses: styfle/cancel-workflow-action@d07a454dad7609a92316b57b23c9ccfd4f59af66 # 0.13.1
         with:
           access_token: ${{ github.token }}
       - name: Print GitHub JSON Object
@@ -59,7 +59,7 @@ jobs:
           echo "last-release-tag-sha=$LAST_TAG_SHA" >> $GITHUB_OUTPUT
           echo Last Release Tag SHA: $LAST_TAG_SHA
       - id: files
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@22103cc46bda19c2b464ffe86db46df6922fd323 # v47.0.5
         with:
           base_sha: ${{ steps.get_last_release.outputs.last-release-tag-sha }}
       - name: Set Dynamic Matrix
