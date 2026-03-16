@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set Cache Key
         id: set-cache-key
         run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set Cache Key
         id: set-cache-key
         run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
