@@ -1,0 +1,32 @@
+name: Workflow Failure Handler
+
+on:
+  workflow_run:
+    workflows: ["GitFlow Workflow"]
+    types:
+      - completed
+    branches:
+      - develop
+
+jobs:
+  handle-failure:
+    name: Handle Workflow Failure
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get workflow run details
+        run: |
+          echo "Failed workflow run: ${{ github.event.workflow_run.html_url }}"
+          echo "Failed workflow run ID: ${{ github.event.workflow_run.id }}"
+          echo "Failed workflow run conclusion: ${{ github.event.workflow_run.conclusion }}"
+          echo "Failed workflow run status: ${{ github.event.workflow_run.status }}"
+          echo "Failed workflow run created at: ${{ github.event.workflow_run.created_at }}"
+          echo "Failed workflow run updated at: ${{ github.event.workflow_run.updated_at }}"
+
+      - name: Notify failure
+        run: |
+          echo "🚨 GitFlow workflow failed on develop branch!"
+          echo "Please check the failed workflow run for more details: ${{ github.event.workflow_run.html_url }}" 

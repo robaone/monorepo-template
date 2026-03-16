@@ -1,0 +1,16 @@
+{
+  "name": "PROJECT_NAME",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "echo \"Not yet implemented\"",
+    "test": "echo \"Not yet implemented\"",
+    "test:e2e": "echo \"Not yet implemented\"",
+    "deploy:develop": "echo \"Not yet implemented\"",
+    "deploy:staging": "echo \"Not yet implemented\"",
+    "deploy:production": "echo \"Not yet implemented\""
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+  }
+}

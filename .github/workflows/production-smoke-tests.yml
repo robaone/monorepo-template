@@ -1,0 +1,39 @@
+name: Production Smoke Tests
+
+on:
+  # Allow manual triggers
+  workflow_dispatch:
+  
+  # Run after successful deployments to production
+  workflow_run:
+    workflows: ["GitFlow Workflow"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  smoke-tests:
+    name: Run Smoke Tests
+    runs-on: ubuntu-latest
+    # Only run if the triggering workflow was successful (for workflow_run events)
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    timeout-minutes: 30
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          
+      - name: Install Dependencies
+        run: |
+          npm i
+          
+      - name: Run Smoke Tests
+        run: npm run test:smoke
+        env:
+          # Add any necessary environment variables for production
+          NODE_ENV: production

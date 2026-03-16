@@ -1,0 +1,133 @@
+name: 'Run Integration Tests'
+description: 'Run integration tests for the delivery domain.'
+inputs:
+  project:
+    description: 'Project name.'
+    required: true
+  env-name:
+    description: 'Environment name.'
+    required: true
+  build-aws-account-id:
+    description: 'AWS Account ID for deployment.'
+    required: true
+  build-aws-access-key-id:
+    description: 'AWS Access Key ID for deployment.'
+    required: true
+  build-aws-secret-access-key:
+    description: 'AWS Secret Access Key for deployment.'
+    required: true
+  build-aws-region:
+    description: 'AWS Region for deployment.'
+    required: true
+  deploy-aws-access-key-id:
+    description: 'AWS Access Key ID for deployment.'
+    required: true
+  deploy-aws-secret-access-key:
+    description: 'AWS Secret Access Key for deployment.'
+    required: true
+  deploy-aws-region:
+    description: 'AWS Region for deployment.'
+    required: true
+  deploy-aws-access-key-id:
+    description: 'AWS Access Key ID for deployment.'
+    required: true
+  deploy-aws-secret-access-key:
+    description: 'AWS Secret Access Key for deployment.'
+    required: true
+  deploy-aws-region:
+    description: 'AWS Region for deployment.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Specify node version
+      uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+    # Configure for Private NPM installation
+    - name: Configure AWS Repo credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ inputs.build-aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.build-aws-secret-access-key }}
+        aws-region: ${{ inputs.build-aws-region }}
+
+    - name: Private Repo
+      shell: bash
+      run: echo CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{ vars.CODEARTIFACT_DOMAIN }} --domain-owner ${{ inputs.build-aws-account-id }} --query authorizationToken --output text --region ${{ inputs.build-aws-region }} ) >> $GITHUB_ENV
+    - name: Write creds
+      uses: DamianReeves/write-file-action@v1.3
+      with:
+        path: ./domains/${{ inputs.project }}/.npmrc
+        contents: |
+          registry=https://${{ vars.CODEARTIFACT_DOMAIN }}-${{ inputs.build-aws-account-id }}.d.codeartifact.${{ inputs.build-aws-region }}.amazonaws.com/npm/${{ vars.CODEARTIFACT_REPOSITORY }}/
+          //${{ vars.CODEARTIFACT_DOMAIN }}-${{ inputs.build-aws-account-id }}.d.codeartifact.${{ inputs.build-aws-region }}.amazonaws.com/npm/${{ vars.CODEARTIFACT_REPOSITORY }}/:always-auth=true
+          //${{ vars.CODEARTIFACT_DOMAIN }}-${{ inputs.build-aws-account-id }}.d.codeartifact.${{ inputs.build-aws-region }}.amazonaws.com/npm/${{ vars.CODEARTIFACT_REPOSITORY }}/:_authToken=${{ env.CODEARTIFACT_AUTH_TOKEN }}
+        write-mode: overwrite
+    - name: Install modules
+      shell: bash
+      run: npm install
+      working-directory: ./domains/${{ inputs.project }}
+    # Configure credentials for calling AWS services based on the deployment account
+    - name: Configure AWS Credentials for Deployment
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ inputs.deploy-aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.deploy-aws-secret-access-key }}
+        aws-region: ${{ inputs.deploy-aws-region }}
+    - name: Build .env
+      shell: bash
+      env:
+        AWS_ACCESS_KEY_ID: ${{ inputs.deploy-aws-access-key-id }}
+        AWS_SECRET_ACCESS_KEY: ${{ inputs.deploy-aws-secret-access-key }}
+        AWS_REGION: ${{ inputs.deploy-aws-region }}
+      run: |
+        echo "AWS_ACCESS_KEY_ID=${{ inputs.deploy-aws-access-key-id }}" >> .env
+        echo "AWS_SECRET_ACCESS_KEY=${{ inputs.deploy-aws-secret-access-key }}" >> .env
+        echo "AWS_REGION=${{ inputs.deploy-aws-region }}" >> .env
+      working-directory: ./domains/${{ inputs.project }}
+
+    # Setup PostgreSQL for Integration Tests
+    - name: Start PostgreSQL for Integration Tests
+      shell: bash
+      run: |
+        docker run -d \
+          --name test-postgres \
+          -e POSTGRES_USER=postgres \
+          -e POSTGRES_PASSWORD=password \
+          -e POSTGRES_DB=postgres \
+          -p 5435:5432 \
+          postgres:14
+        
+        # Wait for PostgreSQL to be ready
+        for i in {1..30}; do
+          if docker exec test-postgres pg_isready -U postgres; then
+            echo "PostgreSQL is ready!"
+            break
+          fi
+          echo "Waiting for PostgreSQL to be ready... ($i/30)"
+          sleep 1
+        done
+      working-directory: ./domains/${{ inputs.project }}
+
+    # Run integration tests for dev & uat deployments
+    - name: Run integration tests
+      shell: bash
+      env:
+        TEST_DB_HOST: localhost
+        TEST_DB_PORT: 5435
+        SecretsPath: dev
+        ENV: ${{ inputs.env-name }}
+      run: npm run test:int
+      working-directory: ./domains/${{ inputs.project }}
+
+    # Cleanup
+    - name: Cleanup PostgreSQL
+      if: always()
+      shell: bash
+      run: docker rm -f test-postgres || true
+      working-directory: ./domains/${{ inputs.project }}
+    

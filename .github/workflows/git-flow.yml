@@ -1,0 +1,790 @@
+name: GitFlow Workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, labeled]
+    branches:
+      - develop
+      - main
+      - release/*
+      - hotfix/*
+
+env:
+  WORKFLOW_VERSION: 1.0.0
+  JIRA_API_TOKEN: ${{ secrets.JIRA_API }}
+  JIRA_USERNAME: ${{ secrets.JIRA_API_CREDENTIALS }}
+  JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+jobs:
+  initialize:
+    name: Initialize
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: |
+      (github.event_name == 'push') ||
+      (github.event_name == 'pull_request' &&
+      (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test')) &&
+      !( github.base_ref == 'develop' &&
+        (startsWith(github.head_ref, 'release/') || startsWith(github.head_ref, 'hotfix/'))))
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Cancel Previous Runs
+        if: ${{ github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/main' }}
+        uses: styfle/cancel-workflow-action@85880fa0301c86cca9da44039ee3bb12d3bedbfa # 0.12.1
+        with:
+          access_token: ${{ github.token }}
+      - name: Print GitHub JSON Object
+        run: |
+          echo "## GitHub JSON Object"
+          echo "$GITHUB_JSON"
+        env:
+          GITHUB_JSON: ${{ toJson(github) }}
+      - name: Get Last Release Tag
+        id: get_last_release
+        run: |
+          LAST_TAG=$(./tooling/scripts/git_latest_version_tag.sh)
+          echo "last-release-tag=$LAST_TAG" >> $GITHUB_OUTPUT
+          echo Last Release Tag: $LAST_TAG
+          if [ "$GITHUB_EVENT_NAME" = "push" ] && [ "$GITHUB_REF" = "refs/heads/main" ]; then
+            LAST_TAG_SHA=$(git rev-list -n 1 v$LAST_TAG)
+          else
+            echo "Not a push to main branch; leaving LAST_TAG_SHA blank."
+            LAST_TAG_SHA=""
+          fi
+          echo "last-release-tag-sha=$LAST_TAG_SHA" >> $GITHUB_OUTPUT
+          echo Last Release Tag SHA: $LAST_TAG_SHA
+      - id: files
+        uses: tj-actions/changed-files@v45
+        with:
+          base_sha: ${{ steps.get_last_release.outputs.last-release-tag-sha }}
+      - name: Set Dynamic Matrix
+        id: setmatrix
+        shell: bash
+        run: |
+          echo "## Modified Files"
+          echo ${{ steps.files.outputs.all_changed_files }} | sed -E 's/ /\n/g'
+          echo "## Deleted Files"
+          echo ${{ steps.files.outputs.deleted_files }} | sed -E 's/ /\n/g'
+          echo "## Combined Files"
+          # Combine all_changed_files and deleted_files
+          COMBINED_FILES="${{ steps.files.outputs.all_changed_files }} ${{ steps.files.outputs.deleted_files }}"
+          echo "$COMBINED_FILES" | sed -E 's/ /\n/g'
+          echo "## Matrix Object"
+          matrixStringifiedObject="$(echo "$COMBINED_FILES" | sed -E 's/ /\n/g' | node ./tooling/scripts/generate_matrix.js)"
+          echo "$matrixStringifiedObject"
+          echo "matrix=$matrixStringifiedObject" >> $GITHUB_OUTPUT
+        env:
+          PROJECT_ROOT: domains
+    outputs:
+      matrix: ${{ steps.setmatrix.outputs.matrix }}
+  pr-hygiene:
+    if: |
+      github.event_name == 'pull_request' &&
+      (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test')) &&
+      !( github.base_ref == 'develop' &&
+        (startsWith(github.head_ref, 'release/') || startsWith(github.head_ref, 'hotfix/')))
+    permissions:
+      contents: read
+      pull-requests: read
+    uses: YOUR_ORG/github-actions/.github/workflows/validate-pr.yml@main
+    with:
+      pr_title: ${{ github.event.pull_request.title }}
+      pr_branch: ${{ github.event.pull_request.head.ref }}
+      target_branch: ${{ github.event.pull_request.base.ref }}
+  unit-tests:
+    name: Unit Tests
+    needs: [initialize]
+    if: |
+      ! ( github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' )
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Unit Tests
+        if: ${{ matrix.project == '.' || matrix.project == 'models' }}
+        run: |
+          npm i
+          npm run test
+        working-directory: domains/${{ matrix.project }}
+
+  feature-tests:
+    name: Feature Tests
+    needs: [initialize]
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    if: |
+      ! ( github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' )
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Feature Tests
+        if: ${{ matrix.project == '.' || matrix.project == 'models' }}
+        run: |
+          npm i
+          npm run test:e2e
+        working-directory: domains/${{ matrix.project }}
+        env:
+          MODIFIED_FILES: ${{ needs.initialize.outputs.files }}
+
+  deploy-check:
+    name: Deployment Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    if: |
+      (github.event_name != 'pull_request' || (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy'))) &&
+      ! contains(github.event.pull_request.body, '[x] Skip CD') &&
+      (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy'))
+    steps:
+      - name: Announce Deployment
+        run: echo "This will be deployed"
+
+  wizcli-scanner:
+    if: |
+      false && (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test'))
+    uses: YOUR_ORG/github-actions/.github/workflows/wizcli-scanner.yml@v2
+    secrets:
+      WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+      WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+
+  static-analysis:
+    name: Static Analysis
+    needs: [initialize]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: YOUR_ORG/github-actions/.github/actions/static-analysis@main
+        with:
+          layer-package-json: 'domains/layer-nodejs-22x/package.json'
+          domains: '${{ needs.initialize.outputs.matrix }}'
+
+  check-release:
+    name: Check Release
+    timeout-minutes: 5
+    if: |
+      (startsWith(github.head_ref,'release/v') || startsWith(github.head_ref,'hotfix/v') ||
+      (github.event_name == 'push' && github.ref == 'refs/heads/main')) &&
+      (github.event_name != 'pull_request' || (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test')))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install Dependencies
+        run: |
+          sudo apt install figlet
+      - name: Confirm Release Version
+        run: |
+          tooling/scripts/check_release_version.sh
+        env:
+          CURRENT_BRANCH: ${{ github.head_ref }}
+          TARGET_BRANCH: ${{ github.base_ref }}
+          EVENT: ${{ github.event_name }}
+
+  semantic-pre-release:
+    name: Semantic Pre Release
+    needs: [deploy-check, unit-tests, feature-tests, initialize]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/develop'
+    outputs:
+      new-tag: ${{ steps.get-new-release.outputs.new-tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - name: Get Current Release
+        run: |
+          git fetch
+          CURRENT_TAG=$(./tooling/scripts/git_latest_version_tag.sh)
+          echo "current-tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+          echo Current Tag: $CURRENT_TAG
+        id: get-current-release
+      - name: Run semantic release
+        run: npx semantic-release@23 -d
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get New Release
+        run: |
+          git fetch
+          NEW_TAG=$(tooling/scripts/git_predict_next_version.sh)-rc
+          echo "new-tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo New Tag: $NEW_TAG
+        id: get-new-release
+
+  deploy-to-develop:
+    name: Develop
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: [deploy-check, unit-tests, feature-tests, initialize]
+    environment: testing
+    if: |
+      (github.event_name == 'push' && github.ref == 'refs/heads/develop') ||
+      (github.event_name == 'pull_request' &&
+       github.event.action == 'labeled' &&
+       github.event.label.name == 'deploy')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Develop
+        if: ${{ matrix.project == '.' }}
+        run: |
+          echo "Deploy to the develop environment"
+          echo "The environment is dev"
+          npm run deploy:develop
+        working-directory: domains/${{ matrix.project }}
+        env:
+          MODIFIED_FILES: ${{ needs.initialize.outputs.files }}
+      - uses: ./domains/data-ingestion/.github/actions/deploy
+        if: ${{ matrix.project == 'data-ingestion' }}
+        with:
+          project: ${{ matrix.project }}
+          env-name: dev
+
+  integration-testing:
+    name: Integration Testing
+    needs: [deploy-to-develop, initialize]
+    # needs: [initialize] # Uncomment this line if you want to run integration tests without deploying first
+    if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+
+  notify-staging-deployment-start:
+    name: Staging/UAT Deployment Start Notification
+    needs:
+      [
+        deploy-check,
+        unit-tests,
+        feature-tests,
+        check-release,
+        initialize,
+      ]
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' && github.base_ref == 'main' &&
+      (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set Cache Key
+        id: set-cache-key
+        run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+      - name: Check Cache
+        id: cache-check
+        uses: actions/cache@v4
+        with:
+          path: task-completion
+          key: ${{ env.CACHE_KEY }}-staging-start-notify-task-done
+      - name: Send Notification for Staging Deployment Start
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: |
+          echo "Send Notification for Staging Deployment Start"
+          # npm run notify:staging-deployment-start
+          mkdir -p task-completion
+          echo "Task completed" > task-completion/staging-start-notify-task-done.txt
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOYMENTS_WEBHOOK }}
+          PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Task Already Done
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: echo "Notification already sent for Staging Deployment Start"
+
+  deploy-prerequisites-staging:
+    name: Staging/UAT Prereqs
+    needs: [deploy-check, check-release, initialize]
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: |
+      github.event_name == 'pull_request' && github.base_ref == 'main' &&
+      (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
+    steps:
+      - uses: actions/checkout@v4
+      - name: Staging/UAT Prereqs
+        if: ${{ matrix.project == '.' }}
+        run: |
+          echo "Deploy prerequisites to the staging environment"
+          npm run deploy:prerequisites
+        working-directory: domains/${{ matrix.project }}
+        env:
+          MODIFIED_FILES: ${{ needs.initialize.outputs.files }}
+
+  deploy-to-staging:
+    name: Staging/UAT
+    environment: testing
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # needs: [initialize]
+    needs:
+      [
+        deploy-check,
+        unit-tests,
+        feature-tests,
+        check-release,
+        initialize,
+        deploy-prerequisites-staging,
+      ]
+    if: |
+      github.event_name == 'pull_request' && github.base_ref == 'main' &&
+      (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Staging
+        if: ${{ matrix.project == '.' }}
+        run: |
+          echo "Deploy to the staging environment"
+          npm run deploy:staging
+        working-directory: domains/${{ matrix.project }}
+        env:
+          MODIFIED_FILES: ${{ needs.initialize.outputs.files }}
+
+  deploy-canary:
+    name: Prod Canary
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs:
+      [
+        deploy-check,
+        unit-tests,
+        feature-tests,
+        check-release,
+        initialize,
+        deploy-prerequisites-staging,
+      ]
+    if: |
+      github.event_name == 'pull_request' && github.base_ref == 'main' &&
+      (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
+    steps:
+      - uses: actions/checkout@v4
+
+  notify-staging-deployment-complete:
+    name: Staging/UAT Deployment Complete Notification
+    needs: [deploy-to-staging]
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' && github.base_ref == 'main' &&
+      (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set Cache Key
+        id: set-cache-key
+        run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+      - name: Check Cache
+        id: cache-check
+        uses: actions/cache@v4
+        with:
+          path: task-completion
+          key: ${{ env.CACHE_KEY }}-staging-complete-notify-task-done
+      - name: Send Notification for Staging Deployment Complete
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        continue-on-error: true
+        run: |
+          echo "Send Notification for Staging Deployment Complete"
+          # npm run notify:staging-deployment-complete
+          mkdir -p task-completion
+          echo "Task completed" > task-completion/staging-complete-notify-task-done.txt
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEPLOYMENTS_WEBHOOK }}
+          PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Task Already Done
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: echo "Notification already sent for Staging Deployment Complete"
+      - name: List Tickets
+        run: |
+          ./tooling/scripts/git_list_tickets.sh || echo "No tickets found"
+  tag-jira-release:
+    runs-on: ubuntu-latest
+    needs: [deploy-to-develop]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: create prompt
+        id: create_prompt
+        run: |
+          RELEASE_BRANCH=release/v$(./tooling/scripts/git_predict_next_version.sh)
+          # if the release branch exists set TARGET_BRANCH to the release branch else set it to origin/main
+          TARGET_BRANCH=$(git ls-remote --heads origin $RELEASE_BRANCH | grep -q $RELEASE_BRANCH && echo origin/$RELEASE_BRANCH || echo 'origin/main')
+          DIFF="$(git log --pretty=format:'%s' $TARGET_BRANCH..HEAD)"
+          LLM_PROMPT_PREFIX="Create a fun release description in 1000 characters or less in one line without identifiers for the following data:
+          "
+          LLM_PROMPT="$LLM_PROMPT_PREFIX$DIFF"
+          echo "$LLM_PROMPT"
+          # Use a delimiter to properly handle the multi-line value
+          echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
+          echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - uses: YOUR_ORG/github-actions/.github/actions/llm@main
+        id: llm_action
+        with:
+          gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
+          prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
+      - uses: YOUR_ORG/github-actions/.github/actions/tag-jira-release@main
+        with:
+          description: ${{ steps.llm_action.outputs.response }}
+          target-branch: 'origin/main'
+          jira-token: ${{ secrets.JIRA_API }}
+          jira-email: ${{ secrets.JIRA_API_CREDENTIALS }}
+          jira-domain: ${{ secrets.JIRA_DOMAIN }}
+          dry-run: 'false'
+      - name: Update dev jira ticket filter
+        run: |
+          NEXT_VERSION=$(./tooling/scripts/jira_tag_tickets.sh -print | jq -r '.next_version')
+          JQL="fixVersion=$NEXT_VERSION"
+          # ./tooling/scripts/jira_update_filter.sh $FILTER_ID "$JQL"
+        env:
+          FILTER_ID: ${{ secrets.JIRA_DEV_FILTER_ID }}
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+
+  tag-jira-release-or-hotfix:
+    runs-on: ubuntu-latest
+    needs: [deploy-to-staging]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: create prompt
+        id: create_prompt
+        run: |
+          DIFF="$(git log --pretty=format:'%s' origin/main..HEAD)"
+          LLM_PROMPT_PREFIX="Create a fun release description in 1000 characters or less in one line without identifiers for the following data:
+          "
+          LLM_PROMPT="$LLM_PROMPT_PREFIX$DIFF"
+          echo "$LLM_PROMPT"
+          # Use a delimiter to properly handle the multi-line value
+          echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
+          echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      - uses: YOUR_ORG/github-actions/.github/actions/llm@main
+        id: llm_action
+        with:
+          gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
+          prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
+      - uses: YOUR_ORG/github-actions/.github/actions/tag-jira-release@main
+        with:
+          description: ${{ steps.llm_action.outputs.response }}
+          target-branch: 'origin/main'
+          jira-token: ${{ secrets.JIRA_API }}
+          jira-email: ${{ secrets.JIRA_API_CREDENTIALS }}
+          jira-domain: ${{ secrets.JIRA_DOMAIN }}
+          dry-run: 'false'
+          is-release: 'true'
+      - name: Update uat jira ticket filter
+        run: |
+          NEXT_VERSION=$(jq -r '.version' package.json)
+          JQL="fixVersion=practice-monorepo-v${NEXT_VERSION}"
+          # ./tooling/scripts/jira_update_filter.sh $FILTER_ID "$JQL"
+        env:
+          FILTER_ID: ${{ secrets.JIRA_UAT_FILTER_ID }}
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+  notify-production-deployment-start:
+    name: Prod Deployment Start Notification
+    needs: [deploy-check, check-release, initialize]
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set Cache Key
+        id: set-cache-key
+        run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+      - name: Check Cache
+        id: cache-check
+        uses: actions/cache@v4
+        with:
+          path: task-completion
+          key: ${{ env.CACHE_KEY }}-production-start-notify-task-done
+      - name: Send Notification for Production Deployment Start
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: |
+          echo "Send Notification for Production Deployment Start"
+          # npm run notify:production-deployment-start
+          mkdir -p task-completion
+          echo "Task completed" > task-completion/production-start-notify-task-done.txt
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK }}
+          GITHUB_WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Task Already Done
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: echo "Notification already sent for Production Deployment Start"
+  deploy-prerequisites-prod:
+    name: Prod Prereqs
+    needs: [deploy-check, check-release, initialize]
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Production
+        if: ${{ matrix.project == '.' }}
+        run: |
+          echo "Deploy prerequisites to the production environment"
+          npm run deploy:prerequisites
+        working-directory: domains/${{ matrix.project }}
+        env:
+          MODIFIED_FILES: ${{ needs.initialize.outputs.files }}
+
+  deploy-to-production:
+    name: Prod
+    needs: [deploy-check, check-release, deploy-prerequisites-prod, initialize]
+    environment: testing
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Production
+        if: ${{ matrix.project == '.' }}
+        run: |
+          echo "Deploy to the production environment"
+          npm run deploy:production
+        working-directory: domains/${{ matrix.project }}
+        env:
+          MODIFIED_FILES: ${{ needs.initialize.outputs.files }}
+
+  semantic-release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    needs: [deploy-to-production]
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main'
+    outputs:
+      new-tag: ${{ steps.get-new-release.outputs.new-tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - name: Get Current Release
+        run: |
+          git fetch
+          CURRENT_TAG=$(./tooling/scripts/git_latest_version_tag.sh)
+          echo "current-tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+          echo Current Tag: $CURRENT_TAG
+        id: get-current-release
+      - name: Run semantic release
+        run: npx semantic-release@23
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get New Release
+        run: |
+          git fetch
+          NEW_TAG=$(tooling/scripts/git_predict_next_version.sh)
+          echo "new-tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo New Tag: $NEW_TAG
+        id: get-new-release
+
+  notify-release:
+    name: Notify Release
+    runs-on: ubuntu-latest
+    needs: [deploy-to-production, semantic-release]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get tickets
+        id: find_tickets
+        run: |
+          REPOSITORY_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+          VERSION="$(echo ${{ needs.semantic-release.outputs.new-tag }})"
+          RELEASE_NAME=$(echo $REPOSITORY_NAME-v$VERSION)
+          echo "RELEASE_NAME=$RELEASE_NAME"
+          echo "release_name=$RELEASE_NAME" >> "$GITHUB_OUTPUT"
+          JQL="fixVersion = $RELEASE_NAME"
+          ./tooling/scripts/jira_find_tickets.sh "$JQL" > jira_tickets.json
+      - name: Stop if there are no tickets
+        id: stop_if_no_tickets
+        run: |
+          ERROR_MSGS="$(jq -r ".errorMessages[0]" jira_tickets.json)"
+          # End the job in success if there are no tickets
+          if [ "$ERROR_MSGS" == "null" ]; then
+            echo "No tickets found, ending job in success"
+            echo "error_msgs=$ERROR_MSGS" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "Tickets found, continuing job"
+      - name: Release Jira Version
+        id: release_jira_version
+        if: steps.stop_if_no_tickets.outputs.error_msgs == 'null'
+        run: |
+          PROJECT_KEYS="$(./tooling/scripts/jira_get_project_keys.sh jira_tickets.json)"
+          for PROJECT_KEY in $PROJECT_KEYS; do
+            echo "PROJECT_KEY=$PROJECT_KEY"
+            ./tooling/scripts/jira_release_version.sh "${{ steps.find_tickets.outputs.release_name }}" "$PROJECT_KEY"
+          done
+      - name: Create Confluence Release Notes
+        if: steps.stop_if_no_tickets.outputs.error_msgs == 'null'
+        id: confluence_release_notes
+        run: |
+          echo "*** JIRA Tickets ***"
+          cat jira_tickets.json
+          node ./tooling/scripts/generate_release_notes.js jira_tickets.json release_notes.html
+          echo "*** Release Notes ***"
+          cat release_notes.html
+          YEAR=$(date +'%Y')
+          DATE=$(date +'%Y-%m-%d')
+          # bash -xv ./tooling/scripts/confluence_create_release_page.sh "$YEAR" "$RELEASE_NAME" "$DATE" release_notes.html > results.json
+          echo "*** Results ***"
+          # cat results.json
+          # jq -r '"\(.["_links"].base)\(.["_links"].webui)"' results.json | tee confluence_release_page_url.txt
+        env:
+          PARENT_PAGE_ID: 4489150471
+          RELEASE_NAME: ${{ steps.find_tickets.outputs.release_name }}
+      - name: Set Cache Key
+        id: set-cache-key
+        run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+      - name: Check Cache
+        id: cache-check
+        uses: actions/cache@v4
+        with:
+          path: task-completion
+          key: ${{ env.CACHE_KEY }}-production-complete-notify-task-done
+      - name: Send Notification for Production Deployment Complete
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: |
+          export CONFLUENCE_RELEASE_PAGE_URL=$(cat confluence_release_page_url.txt)
+          echo "Send Notification for Production Deployment Complete"
+          # npm run notify:production-deployment-complete
+          mkdir -p task-completion
+          echo "Task completed" > task-completion/production-complete-notify-task-done.txt
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK }}
+          GITHUB_WORKFLOW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - name: Task Already Done
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: echo "Notification already sent for Production Deployment Complete"
+      - name: Update prod jira ticket filter
+        run: |
+          NEXT_VERSION=$(jq -r '.version' package.json)
+          JQL="fixVersion=practice-monorepo-v${NEXT_VERSION}"
+          # ./tooling/scripts/jira_update_filter.sh $FILTER_ID "$JQL"
+        env:
+          FILTER_ID: ${{ secrets.JIRA_PROD_FILTER_ID }}
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+
+  auto-merge-to-develop:
+    name: Auto Merge Main to Develop
+    runs-on: ubuntu-latest
+    needs: [deploy-to-production, semantic-release]
+    if: success()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - name: Create PR from main to develop
+        run: |
+          bash -xv ./tooling/scripts/create_main_to_develop_pr.sh
+          # export the PR URL so it is available to the next step
+          export PR_URL="$(gh pr list --base develop --head main --json baseRefName,id,headRefName,url --jq '.[0].url')"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Approve the PR
+        run: |
+          gh pr review --approve "$PR_URL"
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
+      - name: Auto merge the PR
+        run: |
+          PR_URL="$(gh pr list --base develop --head main --json baseRefName,id,headRefName,url --jq '.[0].url')"
+          echo "PR URL: $PR_URL"
+          sleep 2
+          bash -xv ./tooling/scripts/auto_merge_pr.sh "$PR_URL"
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTO_MERGE_TOKEN }}
+
+  update-pr-description:
+    name: Update PR Description
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'pull_request' &&
+      github.base_ref == 'develop' &&
+      contains(github.event.pull_request.labels.*.name, 'auto-pr-description')
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Generate PR Description
+        uses: YOUR_ORG/github-actions/.github/actions/auto-pr-description@main
+        with:
+          gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-number: ${{ github.event.pull_request.number }}
+          jira-ticket-url-prefix: 'https://${{ secrets.JIRA_DOMAIN }}/browse/'
+
+  update-release-description:
+    name: Update Release Description
+    runs-on: ubuntu-latest
+    needs: [pr-hygiene, feature-tests, unit-tests]
+    if: |
+      github.event_name == 'pull_request' &&
+      github.base_ref == 'main' &&
+      success()
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Generate Release Description
+        uses: YOUR_ORG/github-actions/.github/actions/auto-release-description@main
+        with:
+          gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
+          github-token: ${{ secrets.LLM_API_TOKEN }}
+          pr-number: ${{ github.event.pull_request.number }}
+          jira-ticket-url-prefix: 'https://${{ secrets.JIRA_DOMAIN }}/browse/'

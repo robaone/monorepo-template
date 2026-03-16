@@ -1,0 +1,130 @@
+name: Deploy Selected Domains
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to deploy (e.g., 2.133.1)'
+        required: true
+        type: string
+      domains:
+        description: 'Comma-separated list of domains to deploy (e.g., delivery-ts,data-ingestion)'
+        required: true
+        type: string
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - 'prod'
+
+env:
+  WORKFLOW_VERSION: 1.0.0
+
+jobs:
+  initialize:
+    name: Initialize
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Print GitHub JSON Object
+        run: |
+          echo "## GitHub JSON Object"
+          echo "$GITHUB_JSON"
+        env:
+          GITHUB_JSON: ${{ toJson(github) }}
+      - name: Set Version
+        id: set_version
+        run: |
+          echo "version=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          echo "Deploying version: ${{ github.event.inputs.version }}"
+      - name: Set Domain Matrix
+        id: set_domain_matrix
+        run: |
+          # Parse comma-separated domain list
+          DOMAINS="${{ github.event.inputs.domains }}"
+          echo "Input domains: $DOMAINS"
+          
+          # Convert comma-separated string to JSON array
+          # First, split by comma and trim whitespace
+          IFS=',' read -ra DOMAIN_ARRAY <<< "$DOMAINS"
+          
+          # Build JSON array
+          JSON_ARRAY="["
+          for i in "${!DOMAIN_ARRAY[@]}"; do
+            # Trim whitespace from each domain
+            DOMAIN=$(echo "${DOMAIN_ARRAY[$i]}" | xargs)
+            if [ $i -gt 0 ]; then
+              JSON_ARRAY+=","
+            fi
+            JSON_ARRAY+="{\"project\":\"$DOMAIN\"}"
+          done
+          JSON_ARRAY+="]"
+          
+          # Create matrix object
+          matrix="{\"include\":$JSON_ARRAY}"
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          echo "Domain matrix: $matrix"
+    outputs:
+      matrix: ${{ steps.set_domain_matrix.outputs.matrix }}
+      version: ${{ steps.set_version.outputs.version }}
+
+  deploy-selected-domains:
+    name: Deploy Selected Domains to Production
+    needs: [initialize]
+    environment: production
+    strategy:
+      matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # Deploy delivery-ts
+      - uses: ./domains/delivery-ts/.github/actions/deploy
+        if: ${{ matrix.project == 'delivery-ts' }}
+        with:
+          project: ${{ matrix.project }}
+          env-name: prod
+          version: ${{ needs.initialize.outputs.version }}
+
+      # Deploy data-ingestion
+      - uses: ./domains/data-ingestion/.github/actions/deploy
+        if: ${{ matrix.project == 'data-ingestion' }}
+        with:
+          project: ${{ matrix.project }}
+          env-name: prod
+          version: ${{ needs.initialize.outputs.version }}
+
+  notify-completion:
+    name: Notify Deployment Completion
+    needs: [deploy-selected-domains]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Deployment Summary
+        run: |
+          echo "## Deployment Summary"
+          echo "Version: ${{ needs.initialize.outputs.version }}"
+          echo "Environment: Production"
+          echo "Status: ${{ job.status }}"
+          echo "Selected domains have been deployed to production with version ${{ needs.initialize.outputs.version }}"

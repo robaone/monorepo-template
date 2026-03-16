@@ -1,0 +1,1084 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 26,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,customfield_11441.properties,changelog,customfield_11402.requestTypePractice,renderedFields",
+      "id": "79100",
+      "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/79100",
+      "key": "PAR-1906",
+      "fields": {
+        "statuscategorychangedate": "2024-10-31T15:48:12.001-0500",
+        "parent": {
+          "id": "72801",
+          "key": "PAR-638",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/72801",
+          "fields": {
+            "summary": "Access Pearson Codeless Courseware Integration - Fall 2024",
+            "status": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
+              "description": "",
+              "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/statuses/closed.png",
+              "name": "Done",
+              "id": "10000",
+              "statusCategory": {
+                "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/3",
+                "id": 3,
+                "key": "done",
+                "colorName": "green",
+                "name": "Done"
+              }
+            },
+            "priority": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/2",
+              "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/critical.svg",
+              "name": "Critical (P1)",
+              "id": "2"
+            },
+            "issuetype": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/6",
+              "id": "6",
+              "description": "A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.",
+              "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10606?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10606,
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "customfield_11441": null,
+        "fixVersions": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12023",
+            "id": "12023",
+            "description": "Bug fixes, performance improvements, and new features! 🎉",
+            "name": "rsm-monorepo-v1.0.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-26"
+          }
+        ],
+        "customfield_11200": [],
+        "customfield_11443": null,
+        "customfield_11201": null,
+        "customfield_11202": null,
+        "customfield_11436": null,
+        "customfield_11317": null,
+        "customfield_10900": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "EPIC_LINK_SHOULD_BE_USED",
+            "message": "To set an epic as the parent, use the epic link instead"
+          }
+        },
+        "lastViewed": null,
+        "customfield_11391": null,
+        "customfield_11393": null,
+        "customfield_11392": null,
+        "customfield_11394": null,
+        "customfield_10100": "2|i01ydv:",
+        "priority": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/2",
+          "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/critical.svg",
+          "name": "Critical (P1)",
+          "id": "2"
+        },
+        "customfield_11310": null,
+        "labels": [
+          "rush-improvement"
+        ],
+        "customfield_11425": "10359_*:*_1_*:*_13499006_*|*_3_*:*_1_*:*_8549523_*|*_10250_*:*_1_*:*_0_*|*_10002_*:*_1_*:*_253629488_*|*_10202_*:*_1_*:*_243960324",
+        "aggregatetimeoriginalestimate": null,
+        "timeestimate": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "78103",
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/issueLink/78103",
+            "type": {
+              "id": "10001",
+              "name": "Cloners",
+              "inward": "is cloned by",
+              "outward": "clones",
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issueLinkType/10001"
+            },
+            "outwardIssue": {
+              "id": "77863",
+              "key": "PAR-1705",
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/77863",
+              "fields": {
+                "summary": "Ensure student opting results in API calls to Pearson",
+                "status": {
+                  "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
+                  "description": "",
+                  "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/statuses/closed.png",
+                  "name": "Done",
+                  "id": "10000",
+                  "statusCategory": {
+                    "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/3",
+                    "id": 3,
+                    "key": "done",
+                    "colorName": "green",
+                    "name": "Done"
+                  }
+                },
+                "priority": {
+                  "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/2",
+                  "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/critical.svg",
+                  "name": "Critical (P1)",
+                  "id": "2"
+                },
+                "issuetype": {
+                  "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/1",
+                  "id": "1",
+                  "description": "A problem which impairs or prevents the functions of the product. In other words, a problem with production code.",
+                  "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10603?size=medium",
+                  "name": "Bug",
+                  "subtask": false,
+                  "avatarId": 10603,
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "assignee": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=712020%3A2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79",
+          "accountId": "712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79",
+          "emailAddress": "ben.knear@example.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/32"
+          },
+          "displayName": "Ben Knear",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "status": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
+          "description": "",
+          "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/statuses/closed.png",
+          "name": "Done",
+          "id": "10000",
+          "statusCategory": {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "components": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/component/10061",
+            "id": "10061",
+            "name": "RSM"
+          }
+        ],
+        "customfield_11420": null,
+        "customfield_11414": 0.0,
+        "customfield_11413": "",
+        "aggregatetimeestimate": null,
+        "creator": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=712020%3A71fb4a71-8547-4701-a151-cb4b673f6cbf",
+          "accountId": "712020:71fb4a71-8547-4701-a151-cb4b673f6cbf",
+          "emailAddress": "jess.mckean@example.com",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
+            "24x24": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
+            "16x16": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
+            "32x32": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png"
+          },
+          "displayName": "Jess McKean",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=712020%3A71fb4a71-8547-4701-a151-cb4b673f6cbf",
+          "accountId": "712020:71fb4a71-8547-4701-a151-cb4b673f6cbf",
+          "emailAddress": "jess.mckean@example.com",
+          "avatarUrls": {
+            "48x48": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
+            "24x24": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
+            "16x16": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
+            "32x32": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png"
+          },
+          "displayName": "Jess McKean",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "customfield_11410": null,
+        "customfield_11411": null,
+        "customfield_11403": "The first part is about the EntitlementDetailChanged event, and the pearson courseware lambda is not handling that event type.",
+        "customfield_11402": null,
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1906/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "issuetype": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/1",
+          "id": "1",
+          "description": "A problem which impairs or prevents the functions of the product. In other words, a problem with production code.",
+          "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10603?size=medium",
+          "name": "Bug",
+          "subtask": false,
+          "avatarId": 10603,
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/project/11230",
+          "id": "11230",
+          "key": "PAR",
+          "name": "Partner",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050",
+            "24x24": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=small",
+            "16x16": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=xsmall",
+            "32x32": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=medium"
+          },
+          "projectCategory": {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/projectCategory/10001",
+            "id": "10001",
+            "description": "In use as of 6.14.24",
+            "name": "In Use"
+          }
+        },
+        "customfield_11000": "{pullrequest={dataType=pullrequest, state=MERGED, stateCount=6}, json={\"cachedValue\":{\"errors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":6,\"lastUpdated\":\"2024-11-14T21:52:30.000-0600\",\"stateCount\":6,\"state\":\"MERGED\",\"dataType\":\"pullrequest\",\"open\":false},\"byInstanceType\":{\"GitHub\":{\"count\":6,\"name\":\"GitHub\"}}}}},\"isStale\":true}}",
+        "aggregatetimespent": null,
+        "customfield_11400": null,
+        "customfield_10027": null,
+        "customfield_10028": null,
+        "resolutiondate": "2024-10-31T15:48:11.996-0500",
+        "workratio": -1,
+        "watches": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1906/watchers",
+          "watchCount": 1,
+          "isWatching": false
+        },
+        "created": "2024-10-25T15:27:33.660-0500",
+        "customfield_11590": null,
+        "customfield_11592": null,
+        "customfield_11597": null,
+        "customfield_11630": null,
+        "customfield_11596": null,
+        "customfield_10300": [],
+        "customfield_11599": null,
+        "customfield_11598": null,
+        "customfield_11631": null,
+        "customfield_10026": null,
+        "customfield_11623": null,
+        "customfield_11589": null,
+        "customfield_11622": null,
+        "customfield_11625": null,
+        "customfield_11624": null,
+        "customfield_11627": null,
+        "customfield_11629": null,
+        "customfield_11628": "https://www.google.com",
+        "updated": "2024-11-15T11:05:52.111-0600",
+        "timeoriginalestimate": null,
+        "description": "When a student opts out and into a program or material, we need to ensure we are making the corresponding API calls to Pearson to help ensure appropriate material access for the student. \n\nUntil this is resolve, we should run the opting script daily (or multiple times per day?)",
+        "customfield_11100": null,
+        "customfield_11583": null,
+        "customfield_11586": null,
+        "customfield_11585": null,
+        "customfield_11588": null,
+        "customfield_11621": null,
+        "customfield_11620": null,
+        "customfield_11587": null,
+        "customfield_11612": null,
+        "customfield_11611": null,
+        "customfield_11614": null,
+        "customfield_10007": [
+          {
+            "id": 2258,
+            "name": "PAR Sprint 15",
+            "state": "closed",
+            "boardId": 324,
+            "goal": "1. Product data in 1.0 syncs to 2.0 within a day\n2. Finish the Follett Catalog Audit and file generations\n3. UI Improvements in the 2.0 Pricing Rules pages",
+            "startDate": "2024-10-30T17:04:44.208Z",
+            "endDate": "2024-11-13T19:18:32.000Z",
+            "completeDate": "2024-11-13T17:02:29.471Z"
+          }
+        ],
+        "customfield_11613": null,
+        "customfield_10800": null,
+        "customfield_10008": "PAR-638",
+        "customfield_11616": null,
+        "customfield_11615": null,
+        "customfield_11618": null,
+        "customfield_11617": null,
+        "customfield_11619": null,
+        "summary": "Ensure student opting results in API calls to Pearson - University lamdas",
+        "customfield_11450": null,
+        "customfield_11452": null,
+        "customfield_11451": null,
+        "customfield_11454": null,
+        "customfield_10002": null,
+        "customfield_11610": null,
+        "customfield_10004": 2.0,
+        "customfield_11326": null,
+        "customfield_11601": null,
+        "customfield_11447": null,
+        "customfield_11600": null,
+        "customfield_11446": null,
+        "customfield_11449": null,
+        "customfield_11603": null,
+        "environment": null,
+        "customfield_11327": null,
+        "customfield_11448": null,
+        "customfield_11602": null,
+        "customfield_11605": null,
+        "customfield_11604": null,
+        "customfield_11607": null,
+        "duedate": null,
+        "customfield_11606": [],
+        "customfield_11609": null,
+        "customfield_11608": null
+      }
+    },
+    {
+      "expand": "operations,versionedRepresentations,editmeta,customfield_11441.properties,changelog,customfield_11402.requestTypePractice,renderedFields",
+      "id": "78830",
+      "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78830",
+      "key": "PAR-1856",
+      "fields": {
+        "statuscategorychangedate": "2024-11-12T04:02:51.824-0600",
+        "parent": {
+          "id": "78415",
+          "key": "PAR-1889",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78415",
+          "fields": {
+            "summary": "RS 2.0 Product Adoption Match & Pricing Workflows",
+            "status": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10351",
+              "description": "Fulfills the Definition of Ready and is set to be pulled into Sprint.",
+              "iconUrl": "https://your-jira-domain.atlassian.net/",
+              "name": "Ready",
+              "id": "10351",
+              "statusCategory": {
+                "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/2",
+              "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/critical.svg",
+              "name": "Critical (P1)",
+              "id": "2"
+            },
+            "issuetype": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/6",
+              "id": "6",
+              "description": "A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.",
+              "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10606?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10606,
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "customfield_11441": null,
+        "fixVersions": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12023",
+            "id": "12023",
+            "description": "Bug fixes, performance improvements, and new features! 🎉",
+            "name": "rsm-monorepo-v1.0.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-26"
+          },
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12032",
+            "id": "12032",
+            "description": "🚀 New filters, sorting, bug fixes & performance boosts!",
+            "name": "subgraphs-v1.0.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-19"
+          },
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12046",
+            "id": "12046",
+            "description": "Bug fixes, new features, and performance improvements! 🚀",
+            "name": "rsm-monorepo-v1.1.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-26"
+          }
+        ],
+        "customfield_11200": [],
+        "customfield_11443": null,
+        "customfield_11201": null,
+        "customfield_11202": null,
+        "customfield_11436": null,
+        "customfield_11317": null,
+        "customfield_10900": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "EPIC_LINK_SHOULD_BE_USED",
+            "message": "To set an epic as the parent, use the epic link instead"
+          }
+        },
+        "lastViewed": null,
+        "customfield_11394": null,
+        "priority": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/2",
+          "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/critical.svg",
+          "name": "Critical (P1)",
+          "id": "2"
+        },
+        "customfield_10100": "2|hzu1rf:zy6s",
+        "customfield_11310": "* Create the ability to set a default AccessMethod for courseware at the publisher (producer) level\n* In the Create Organization page, add “Default Courseware Access Method” as a new field, just below Fulfillment Price Type. node_modules This field should be required when creating a new organization. node_modules Default it to CODED, and allow the user to either leave that or choose CODELESS instead. node_modules In the Organization Details page, add “Default Courseware Access Method” as a field, just below Fulfillment Price Type node_modules Backfill all existing publisher orgs (producers) with their correct defaults (Sara will get a list from Pub Team)",
+        "labels": [
+          "rush-improvement"
+        ],
+        "customfield_11425": "10425_*:*_1_*:*_68694547_*|*_3_*:*_1_*:*_343644856_*|*_10250_*:*_1_*:*_0_*|*_10002_*:*_1_*:*_1467978555_*|*_10202_*:*_1_*:*_594897342",
+        "aggregatetimeoriginalestimate": null,
+        "timeestimate": null,
+        "versions": [],
+        "issuelinks": [
+          {
+            "id": "78503",
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/issueLink/78503",
+            "type": {
+              "id": "10404",
+              "name": "Polaris issue link",
+              "inward": "is implemented by",
+              "outward": "implements",
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issueLinkType/10404"
+            },
+            "outwardIssue": {
+              "id": "79351",
+              "key": "PAR-1944",
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/79351",
+              "fields": {
+                "summary": "Add Default AccessMethod Configurability to Producer (FE Part)",
+                "status": {
+                  "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10002",
+                  "description": "",
+                  "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/statuses/open.png",
+                  "name": "To Do",
+                  "id": "10002",
+                  "statusCategory": {
+                    "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/2",
+                    "id": 2,
+                    "key": "new",
+                    "colorName": "blue-gray",
+                    "name": "To Do"
+                  }
+                },
+                "priority": {
+                  "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/4",
+                  "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/minor.svg",
+                  "name": "Minor (P3)",
+                  "id": "4"
+                },
+                "issuetype": {
+                  "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/7",
+                  "id": "7",
+                  "description": "A user story. Created by JIRA Software - do not edit or delete.",
+                  "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10615?size=medium",
+                  "name": "Story",
+                  "subtask": false,
+                  "avatarId": 10615,
+                  "hierarchyLevel": 0
+                }
+              }
+            }
+          }
+        ],
+        "assignee": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5f10b3b470b8a90025c21b6b",
+          "accountId": "5f10b3b470b8a90025c21b6b",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png"
+          },
+          "displayName": "Andrey Syrisko",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "status": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
+          "description": "",
+          "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/statuses/closed.png",
+          "name": "Done",
+          "id": "10000",
+          "statusCategory": {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "components": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/component/10061",
+            "id": "10061",
+            "name": "RSM"
+          }
+        ],
+        "customfield_11420": null,
+        "customfield_11414": 0.0,
+        "customfield_11413": "",
+        "aggregatetimeestimate": null,
+        "creator": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
+          "accountId": "5acfcd6ebb811e2b3af914b1",
+          "emailAddress": "sara.ellenberger@example.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+          },
+          "displayName": "Sara Ellenberger",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
+          "accountId": "5acfcd6ebb811e2b3af914b1",
+          "emailAddress": "sara.ellenberger@example.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+          },
+          "displayName": "Sara Ellenberger",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "customfield_11410": null,
+        "customfield_11411": null,
+        "customfield_11403": "* Should we remove the duplicated data from Organization Program?\n* We should check the sync between Products and Adoptions to ensure that we’re copying the access method",
+        "customfield_11402": null,
+        "customfield_11405": "As a Publisher, I need to be able to set my default AccessMethod (Coded/Codeless) for all of my Access adoptions so that I don’t need to tell the platform what my preferred access method is for each term or campus or course.",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1856/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "issuetype": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/7",
+          "id": "7",
+          "description": "A user story. Created by JIRA Software - do not edit or delete.",
+          "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10615?size=medium",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 10615,
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/project/11230",
+          "id": "11230",
+          "key": "PAR",
+          "name": "Partner",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050",
+            "24x24": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=small",
+            "16x16": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=xsmall",
+            "32x32": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=medium"
+          },
+          "projectCategory": {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/projectCategory/10001",
+            "id": "10001",
+            "description": "In use as of 6.14.24",
+            "name": "In Use"
+          }
+        },
+        "customfield_11000": "{pullrequest={dataType=pullrequest, state=MERGED, stateCount=6}, json={\"cachedValue\":{\"errors\":[],\"summary\":{\"pullrequest\":{\"overall\":{\"count\":6,\"lastUpdated\":\"2024-11-14T21:52:30.000-0600\",\"stateCount\":6,\"state\":\"MERGED\",\"dataType\":\"pullrequest\",\"open\":false},\"byInstanceType\":{\"GitHub\":{\"count\":6,\"name\":\"GitHub\"}}}}},\"isStale\":true}}",
+        "aggregatetimespent": null,
+        "customfield_11400": null,
+        "customfield_10027": null,
+        "customfield_10028": null,
+        "resolutiondate": "2024-11-12T04:02:51.818-0600",
+        "workratio": -1,
+        "watches": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1856/watchers",
+          "watchCount": 4,
+          "isWatching": false
+        },
+        "created": "2024-10-14T13:29:16.524-0500",
+        "customfield_11590": null,
+        "customfield_11592": null,
+        "customfield_11597": null,
+        "customfield_11630": null,
+        "customfield_11596": null,
+        "customfield_10300": [],
+        "customfield_11599": null,
+        "customfield_11598": null,
+        "customfield_11631": null,
+        "customfield_10026": null,
+        "customfield_11623": null,
+        "customfield_11589": null,
+        "customfield_11622": null,
+        "customfield_11625": null,
+        "customfield_11624": null,
+        "customfield_11627": null,
+        "customfield_11629": null,
+        "customfield_11628": null,
+        "updated": "2024-11-15T11:06:00.194-0600",
+        "timeoriginalestimate": null,
+        "description": null,
+        "customfield_11100": null,
+        "customfield_11583": null,
+        "customfield_11586": null,
+        "customfield_11585": null,
+        "customfield_11588": null,
+        "customfield_11621": null,
+        "customfield_11620": null,
+        "customfield_11587": null,
+        "customfield_11612": null,
+        "customfield_11611": null,
+        "customfield_11614": null,
+        "customfield_10007": [
+          {
+            "id": 2258,
+            "name": "PAR Sprint 15",
+            "state": "closed",
+            "boardId": 324,
+            "goal": "1. Product data in 1.0 syncs to 2.0 within a day\n2. Finish the Follett Catalog Audit and file generations\n3. UI Improvements in the 2.0 Pricing Rules pages",
+            "startDate": "2024-10-30T17:04:44.208Z",
+            "endDate": "2024-11-13T19:18:32.000Z",
+            "completeDate": "2024-11-13T17:02:29.471Z"
+          }
+        ],
+        "customfield_11613": null,
+        "customfield_10800": null,
+        "customfield_10008": "PAR-1889",
+        "customfield_11616": null,
+        "customfield_11615": null,
+        "customfield_11618": null,
+        "customfield_11617": null,
+        "customfield_11619": null,
+        "summary": "Add Default AccessMethod Configurability to Producer (BE Part)",
+        "customfield_11450": null,
+        "customfield_11452": null,
+        "customfield_11451": null,
+        "customfield_11454": null,
+        "customfield_10002": null,
+        "customfield_11610": null,
+        "customfield_10004": 3.0,
+        "customfield_11326": null,
+        "customfield_11601": null,
+        "customfield_11447": null,
+        "customfield_11600": null,
+        "customfield_11446": null,
+        "customfield_11449": null,
+        "customfield_11603": null,
+        "environment": null,
+        "customfield_11327": null,
+        "customfield_11448": null,
+        "customfield_11602": null,
+        "customfield_11605": null,
+        "customfield_11604": null,
+        "customfield_11607": null,
+        "duedate": null,
+        "customfield_11606": [],
+        "customfield_11609": null,
+        "customfield_11608": null
+      }
+    },
+    {
+      "expand": "operations,versionedRepresentations,editmeta,customfield_11441.properties,changelog,customfield_11402.requestTypePractice,renderedFields",
+      "id": "78486",
+      "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78486",
+      "key": "PAR-1780",
+      "fields": {
+        "statuscategorychangedate": "2024-11-14T15:55:34.983-0600",
+        "parent": {
+          "id": "78441",
+          "key": "PAR-1805",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78441",
+          "fields": {
+            "summary": "RS 2.0 Catalog Pricing ",
+            "status": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10351",
+              "description": "Fulfills the Definition of Ready and is set to be pulled into Sprint.",
+              "iconUrl": "https://your-jira-domain.atlassian.net/",
+              "name": "Ready",
+              "id": "10351",
+              "statusCategory": {
+                "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/2",
+                "id": 2,
+                "key": "new",
+                "colorName": "blue-gray",
+                "name": "To Do"
+              }
+            },
+            "priority": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/4",
+              "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/minor.svg",
+              "name": "Minor (P3)",
+              "id": "4"
+            },
+            "issuetype": {
+              "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/6",
+              "id": "6",
+              "description": "A big user story that needs to be broken down. Created by JIRA Software - do not edit or delete.",
+              "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10606?size=medium",
+              "name": "Epic",
+              "subtask": false,
+              "avatarId": 10606,
+              "hierarchyLevel": 1
+            }
+          }
+        },
+        "customfield_11441": null,
+        "fixVersions": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12023",
+            "id": "12023",
+            "description": "Bug fixes, performance improvements, and new features! 🎉",
+            "name": "rsm-monorepo-v1.0.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-26"
+          },
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12032",
+            "id": "12032",
+            "description": "🚀 New filters, sorting, bug fixes & performance boosts!",
+            "name": "subgraphs-v1.0.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-19"
+          },
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12046",
+            "id": "12046",
+            "description": "Bug fixes, new features, and performance improvements! 🚀",
+            "name": "rsm-monorepo-v1.1.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-26"
+          },
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12058",
+            "id": "12058",
+            "description": "New features, bug fixes, and improvements, including easier course viewing, updated pricing, and smoother user experiences. ",
+            "name": "manager-app-v1.4.0",
+            "archived": false,
+            "released": false,
+            "releaseDate": "2024-11-26"
+          }
+        ],
+        "customfield_11200": [],
+        "customfield_11443": null,
+        "customfield_11201": null,
+        "customfield_11202": null,
+        "customfield_11436": null,
+        "customfield_11317": null,
+        "customfield_10900": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "EPIC_LINK_SHOULD_BE_USED",
+            "message": "To set an epic as the parent, use the epic link instead"
+          }
+        },
+        "lastViewed": null,
+        "customfield_11394": null,
+        "customfield_11310": "* Add an option to edit in the 3 dot menus in the price schedules table\n* Allow users to choose that new edit option - they should land on the pricing schedule configuration page as if they’re adding a new schedule, but with the existing parameters filled in\n* Add a Save Changes button\n* Once the user clicks Save Changes, they should be prompted to recalculate\n* All of the same conflict prevention should apply the same as adding new schedules",
+        "customfield_10100": "2|hzu1rf:zy6sp",
+        "priority": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/3",
+          "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/priorities/major.svg",
+          "name": "Major (P2)",
+          "id": "3"
+        },
+        "labels": [
+          "rush-improvement"
+        ],
+        "customfield_11425": "10359_*:*_2_*:*_697499948_*|*_3_*:*_1_*:*_784831738_*|*_10360_*:*_2_*:*_17916227_*|*_10250_*:*_1_*:*_0_*|*_10002_*:*_1_*:*_1805180288_*|*_10202_*:*_1_*:*_1034241433",
+        "aggregatetimeoriginalestimate": null,
+        "timeestimate": null,
+        "versions": [],
+        "issuelinks": [],
+        "assignee": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=619798a56d002b006b378d5c",
+          "accountId": "619798a56d002b006b378d5c",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png"
+          },
+          "displayName": "Nikita Makeychik",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "status": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
+          "description": "",
+          "iconUrl": "https://your-jira-domain.atlassian.net/images/icons/statuses/closed.png",
+          "name": "Done",
+          "id": "10000",
+          "statusCategory": {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/statuscategory/3",
+            "id": 3,
+            "key": "done",
+            "colorName": "green",
+            "name": "Done"
+          }
+        },
+        "components": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/component/10061",
+            "id": "10061",
+            "name": "RSM"
+          }
+        ],
+        "customfield_11420": null,
+        "customfield_11414": 0.0,
+        "customfield_11413": "",
+        "aggregatetimeestimate": null,
+        "creator": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
+          "accountId": "5acfcd6ebb811e2b3af914b1",
+          "emailAddress": "sara.ellenberger@example.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+          },
+          "displayName": "Sara Ellenberger",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "subtasks": [],
+        "reporter": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
+          "accountId": "5acfcd6ebb811e2b3af914b1",
+          "emailAddress": "sara.ellenberger@example.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+          },
+          "displayName": "Sara Ellenberger",
+          "active": true,
+          "timeZone": "America/Chicago",
+          "accountType": "atlassian"
+        },
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "customfield_11410": null,
+        "customfield_11411": null,
+        "customfield_11403": null,
+        "customfield_11402": null,
+        "customfield_11405": "As a member of the Pub Team, I want to be able to edit existing Price Schedules so that I don’t have to completely delete and rebuild a schedule if I need to make a small change.",
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1780/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "issuetype": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issuetype/7",
+          "id": "7",
+          "description": "A user story. Created by JIRA Software - do not edit or delete.",
+          "iconUrl": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10615?size=medium",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 10615,
+          "hierarchyLevel": 0
+        },
+        "timespent": null,
+        "project": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/project/11230",
+          "id": "11230",
+          "key": "PAR",
+          "name": "Partner",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050",
+            "24x24": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=small",
+            "16x16": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=xsmall",
+            "32x32": "https://your-jira-domain.atlassian.net/rest/api/2/universal_avatar/view/type/project/avatar/11050?size=medium"
+          },
+          "projectCategory": {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/projectCategory/10001",
+            "id": "10001",
+            "description": "In use as of 6.14.24",
+            "name": "In Use"
+          }
+        },
+        "customfield_11000": "{repository={count=88, dataType=repository}, json={\"cachedValue\":{\"errors\":[],\"summary\":{\"repository\":{\"overall\":{\"count\":88,\"lastUpdated\":\"2024-11-19T08:07:14.000-0600\",\"dataType\":\"repository\"},\"byInstanceType\":{\"GitHub\":{\"count\":88,\"name\":\"GitHub\"}}}}},\"isStale\":false}}",
+        "aggregatetimespent": null,
+        "customfield_11400": null,
+        "customfield_10027": null,
+        "customfield_10028": null,
+        "resolutiondate": "2024-11-14T15:55:34.974-0600",
+        "workratio": -1,
+        "watches": {
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1780/watchers",
+          "watchCount": 1,
+          "isWatching": false
+        },
+        "created": "2024-09-25T11:27:45.349-0500",
+        "customfield_11590": null,
+        "customfield_11592": null,
+        "customfield_11597": null,
+        "customfield_11630": null,
+        "customfield_11596": null,
+        "customfield_10300": [],
+        "customfield_11599": null,
+        "customfield_11598": null,
+        "customfield_11631": null,
+        "customfield_10026": null,
+        "customfield_11623": null,
+        "customfield_11589": null,
+        "customfield_11622": null,
+        "customfield_11625": "Internal users will now be able to edit existing pricing schedules in 2.0",
+        "customfield_11624": null,
+        "customfield_11627": [
+          {
+            "self": "https://your-jira-domain.atlassian.net/rest/api/2/customFieldOption/10881",
+            "value": "Stakeholder Highlight",
+            "id": "10881"
+          }
+        ],
+        "customfield_11629": null,
+        "customfield_11628": null,
+        "updated": "2024-11-15T11:05:45.819-0600",
+        "timeoriginalestimate": null,
+        "description": null,
+        "customfield_11100": null,
+        "customfield_11583": null,
+        "customfield_11586": null,
+        "customfield_11585": null,
+        "customfield_11588": null,
+        "customfield_11621": null,
+        "customfield_11620": null,
+        "customfield_11587": null,
+        "customfield_11612": null,
+        "customfield_11611": null,
+        "customfield_11614": null,
+        "customfield_10007": [
+          {
+            "id": 2241,
+            "name": "PAR Sprint 14",
+            "state": "closed",
+            "boardId": 324,
+            "goal": "Truely, for reals, N'Sync, 2.0 Pricing Controls, Catalog data changes.",
+            "startDate": "2024-10-16T16:42:00.795Z",
+            "endDate": "2024-10-30T18:56:51.000Z",
+            "completeDate": "2024-10-30T15:22:28.851Z"
+          },
+          {
+            "id": 2258,
+            "name": "PAR Sprint 15",
+            "state": "closed",
+            "boardId": 324,
+            "goal": "1. Product data in 1.0 syncs to 2.0 within a day\n2. Finish the Follett Catalog Audit and file generations\n3. UI Improvements in the 2.0 Pricing Rules pages",
+            "startDate": "2024-10-30T17:04:44.208Z",
+            "endDate": "2024-11-13T19:18:32.000Z",
+            "completeDate": "2024-11-13T17:02:29.471Z"
+          },
+          {
+            "id": 2261,
+            "name": "PAR Sprint 16",
+            "state": "active",
+            "boardId": 324,
+            "goal": "1. Complete sync\n2. Complete Follett Audit",
+            "startDate": "2024-11-13T17:59:37.750Z",
+            "endDate": "2024-11-27T20:30:00.000Z"
+          }
+        ],
+        "customfield_10008": "PAR-1805",
+        "customfield_11613": null,
+        "customfield_10800": null,
+        "customfield_11616": null,
+        "customfield_11615": null,
+        "customfield_11618": null,
+        "customfield_11617": null,
+        "customfield_11619": null,
+        "summary": "Allow Editability of 2.0 Pricing Schedules",
+        "customfield_11450": null,
+        "customfield_11452": null,
+        "customfield_11451": null,
+        "customfield_11454": null,
+        "customfield_10002": null,
+        "customfield_11610": null,
+        "customfield_10004": 5.0,
+        "customfield_11326": null,
+        "customfield_11601": null,
+        "customfield_11447": null,
+        "customfield_11600": null,
+        "customfield_11446": null,
+        "customfield_11449": null,
+        "customfield_11603": null,
+        "environment": null,
+        "customfield_11327": null,
+        "customfield_11448": null,
+        "customfield_11602": null,
+        "customfield_11605": null,
+        "customfield_11604": null,
+        "customfield_11607": null,
+        "duedate": null,
+        "customfield_11606": [],
+        "customfield_11609": null,
+        "customfield_11608": null
+      }
+    }
+  ]
+}

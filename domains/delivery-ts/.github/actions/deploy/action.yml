@@ -1,0 +1,51 @@
+name: 'Build and Deploy Typescript Project'
+description: 'Builds and deploys a Typescript project using specified environment variables and AWS credentials.'
+inputs:
+  project:
+    description: 'Project name.'
+    required: true
+  env-name:
+    description: 'Environment name.'
+    required: true
+  version:
+    description: 'Version tag to checkout and deploy.'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    # Setup
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.version != '' && format('v{0}', inputs.version) || '' }}
+    
+    - name: Specify node version
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+        cache: 'npm'
+
+    # Build
+    - name: Install modules
+      shell: bash
+      run: npm i
+      working-directory: ./domains/${{ inputs.project }}
+
+    - name: Build
+      shell: bash
+      run: |
+        echo "Building ${{ inputs.project }}"
+      working-directory: ./domains/${{ inputs.project }}
+
+    # Deploy
+    - name: Deploy
+      shell: bash
+      run: |
+        echo "Deploying ${{ inputs.project }} to ${{ inputs.env-name }}"
+        echo "Version: ${{ inputs.version }}"
+        echo "Deployment completed successfully!"
+      working-directory: ./domains/${{ inputs.project }}
+
+

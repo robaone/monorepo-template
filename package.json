@@ -1,0 +1,71 @@
+{
+  "name": "practice-monorepo",
+  "version": "1.24.1",
+  "description": "Monorepo configuration and tooling",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "markdown-toc": "^1.2.0"
+  },
+  "devDependencies": {
+    "@semantic-release/github": "^9.0.3",
+    "@semantic-release/release-notes-generator": "^11.0.3",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^22.5.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "git-cz": "^4.9.0"
+  },
+  "scripts": {
+    "build": "echo \"Not yet implemented\"",
+    "create:pr": "./tooling/scripts/create_pull_request.sh",
+    "deploy:develop": "echo \"Not yet implemented\"",
+    "deploy:prerequisites": "echo \"Not yet implemented\"",
+    "deploy:production": "echo \"Not yet implemented\"",
+    "deploy:staging": "echo \"Not yet implemented\"",
+    "finish:hotfix": "echo \"Not yet implemented\"",
+    "finish:release": "echo \"Not yet implemented\"",
+    "install:dependencies": "echo \"Not yet implemented\"",
+    "merge": "./tooling/scripts/merge.sh",
+    "merge:release": "echo \"Not yet implemented\"",
+    "notify:feature-ready": "./tooling/scripts/notify_feature_ready.sh",
+    "notify:staging-deployment-start": "./tooling/scripts/notify_staging_deployment_start.sh",
+    "notify:staging-deployment-complete": "./tooling/scripts/notify_staging_deployment_complete.sh",
+    "notify:production-deployment-start": "./tooling/scripts/notify_production_deployment_start.sh",
+    "notify:production-deployment-complete": "./tooling/scripts/notify_production_deployment_complete.sh",
+    "notify:release-ready": "./tooling/scripts/notify_release_ready.sh",
+    "setup": "./tooling/scripts/setup.sh",
+    "start:feature": "./tooling/scripts/start_feature.sh",
+    "start:hotfix": "./tooling/scripts/start_hotfix.sh",
+    "start:project": "./tooling/scripts/start_project.sh",
+    "start:release": "./tooling/scripts/start_release.sh",
+    "test": "./tooling/scripts/run_tests.sh",
+    "test:e2e": "echo \"Not yet implemented\"",
+    "test:smoke": "echo \"Not yet implemented\""
+  },
+  "release": {
+    "branches": [
+      "main",
+      {
+        "name": "develop",
+        "prerelease": true
+      }
+    ],
+    "plugins": [
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "linkReferences": false
+        }
+      ],
+      [
+        "@semantic-release/github",
+        {
+          "successComment": false,
+          "failComment": false
+        }
+      ]
+    ]
+  }
+}

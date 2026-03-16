@@ -1,0 +1,77 @@
+name: Trigger Workflow on Approved PR with All Checks Green
+
+on:
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  run-on-approved-release-pr:
+    if: |
+      github.event_name == 'pull_request_review' && 
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'main' &&
+      (startsWith(github.event.pull_request.head.ref, 'release/v') || startsWith(github.event.pull_request.head.ref, 'hotfix/v'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set Cache Key
+        id: set-cache-key
+        run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+      - name: Check Cache
+        id: cache-check
+        uses: actions/cache@v4
+        with:
+          path: task-completion
+          key: ${{ env.CACHE_KEY }}-release-ready-notify-task-done
+      - name: Send Notification for Release being Ready
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: |
+          echo "Send Notification for Release being Ready"
+          npm run notify:release-ready
+          mkdir -p task-completion
+          echo "Task completed" > task-completion/release-ready-notify-task-done.txt
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_RELEASES_WEBHOOK }}
+          PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+      - name: Task Already Done
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: echo "Notification already sent for Release being Ready"
+
+  run-on-approved-reature-pr:
+    if: |
+      github.event_name == 'pull_request_review' && 
+      github.event.review.state == 'approved' &&
+      github.event.pull_request.base.ref == 'develop' &&
+      ! (startsWith(github.event.pull_request.head.ref, 'release/v') || startsWith(github.event.pull_request.head.ref, 'hotfix/v'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set Cache Key
+        id: set-cache-key
+        run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+      - name: Check Cache
+        id: cache-check
+        uses: actions/cache@v4
+        with:
+          path: task-completion
+          key: ${{ env.CACHE_KEY }}-feature-ready-notify-task-done
+      - name: Send Notification for Feature being Ready
+        if: steps.cache-check.outputs.cache-hit != 'true'
+        run: |
+          echo "Send Notification for Feature being Ready"
+          npm run notify:feature-ready
+          mkdir -p task-completion
+          echo "Task completed" > task-completion/feature-ready-notify-task-done.txt
+        env:
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API }}
+          JIRA_API_USERNAME: ${{ secrets.JIRA_API_CREDENTIALS }}
+          JIRA_DOMAIN: ${{ secrets.JIRA_DOMAIN }}
+          PULL_REQUEST_DESCRIPTION: ${{ github.event.pull_request.body }}
+          PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+          PULL_REQUEST_TITLE: ${{ github.event.pull_request.title }}
+      - name: Task Already Done
+        if: steps.cache-check.outputs.cache-hit == 'true'
+        run: echo "Notification already sent for Feature being Ready"
