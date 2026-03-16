@@ -30,12 +30,12 @@ jobs:
       !( github.base_ref == 'develop' &&
         (startsWith(github.head_ref, 'release/') || startsWith(github.head_ref, 'hotfix/'))))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Cancel Previous Runs
         if: ${{ github.ref != 'refs/heads/develop' && github.ref != 'refs/heads/main' }}
-        uses: styfle/cancel-workflow-action@85880fa0301c86cca9da44039ee3bb12d3bedbfa # 0.12.1
+        uses: styfle/cancel-workflow-action@d07a454dad7609a92316b57b23c9ccfd4f59af66 # 0.13.1
         with:
           access_token: ${{ github.token }}
       - name: Print GitHub JSON Object
@@ -59,7 +59,7 @@ jobs:
           echo "last-release-tag-sha=$LAST_TAG_SHA" >> $GITHUB_OUTPUT
           echo Last Release Tag SHA: $LAST_TAG_SHA
       - id: files
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@22103cc46bda19c2b464ffe86db46df6922fd323 # v47.0.5
         with:
           base_sha: ${{ steps.get_last_release.outputs.last-release-tag-sha }}
       - name: Set Dynamic Matrix
@@ -91,7 +91,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    uses: virdocssoftware/github-actions/.github/workflows/validate-pr.yml@v2.26.1
+    uses: robaone/github-actions/.github/workflows/validate-pr.yml@update-node-version-to-24
     with:
       pr_title: ${{ github.event.pull_request.title }}
       pr_branch: ${{ github.event.pull_request.head.ref }}
@@ -107,7 +107,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run Unit Tests
         if: ${{ matrix.project == '.' || matrix.project == 'models' }}
         run: |
@@ -126,7 +126,7 @@ jobs:
       github.ref == 'refs/heads/main' )
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run Feature Tests
         if: ${{ matrix.project == '.' || matrix.project == 'models' }}
         run: |
@@ -153,7 +153,7 @@ jobs:
     needs: [initialize]
     runs-on: ubuntu-latest
     steps:
-      - uses: virdocssoftware/github-actions/.github/actions/static-analysis@v2.26.1
+      - uses: robaone/github-actions/.github/actions/static-analysis@update-node-version-to-24
         with:
           layer-package-json: 'domains/layer-nodejs-22x/package.json'
           domains: '${{ needs.initialize.outputs.matrix }}'
@@ -167,7 +167,7 @@ jobs:
       (github.event_name != 'pull_request' || (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test')))
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Install Dependencies
@@ -194,10 +194,10 @@ jobs:
     outputs:
       new-tag: ${{ steps.get-new-release.outputs.new-tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
       - name: Get Current Release
@@ -233,7 +233,7 @@ jobs:
        github.event.action == 'labeled' &&
        github.event.label.name == 'deploy')
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Deploy to Develop
         if: ${{ matrix.project == '.' }}
         run: |
@@ -259,7 +259,7 @@ jobs:
     strategy:
       matrix: ${{ fromJson(needs.initialize.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
   notify-staging-deployment-start:
     name: Staging/UAT Deployment Start Notification
@@ -276,7 +276,7 @@ jobs:
       github.event_name == 'pull_request' && github.base_ref == 'main' &&
       (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set Cache Key
         id: set-cache-key
         run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
@@ -312,7 +312,7 @@ jobs:
       github.event_name == 'pull_request' && github.base_ref == 'main' &&
       (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Staging/UAT Prereqs
         if: ${{ matrix.project == '.' }}
         run: |
@@ -343,7 +343,7 @@ jobs:
       github.event_name == 'pull_request' && github.base_ref == 'main' &&
       (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Deploy to Staging
         if: ${{ matrix.project == '.' }}
         run: |
@@ -372,7 +372,7 @@ jobs:
       github.event_name == 'pull_request' && github.base_ref == 'main' &&
       (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
   notify-staging-deployment-complete:
     name: Staging/UAT Deployment Complete Notification
@@ -382,7 +382,7 @@ jobs:
       github.event_name == 'pull_request' && github.base_ref == 'main' &&
       (startsWith(github.head_ref, 'release/v') || startsWith(github.head_ref, 'hotfix/v'))
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Set Cache Key
@@ -418,7 +418,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: create prompt
@@ -436,12 +436,12 @@ jobs:
           echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
           echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - uses: virdocssoftware/github-actions/.github/actions/llm@v2.26.1
+      - uses: robaone/github-actions/.github/actions/llm@update-node-version-to-24
         id: llm_action
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
-      - uses: virdocssoftware/github-actions/.github/actions/tag-jira-release@v2.26.1
+      - uses: robaone/github-actions/.github/actions/tag-jira-release@update-node-version-to-24
         with:
           description: ${{ steps.llm_action.outputs.response }}
           target-branch: 'origin/main'
@@ -463,7 +463,7 @@ jobs:
     needs: [deploy-to-staging]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: create prompt
@@ -478,12 +478,12 @@ jobs:
           echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
           echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - uses: virdocssoftware/github-actions/.github/actions/llm@v2.26.1
+      - uses: robaone/github-actions/.github/actions/llm@update-node-version-to-24
         id: llm_action
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
-      - uses: virdocssoftware/github-actions/.github/actions/tag-jira-release@v2.26.1
+      - uses: robaone/github-actions/.github/actions/tag-jira-release@update-node-version-to-24
         with:
           description: ${{ steps.llm_action.outputs.response }}
           target-branch: 'origin/main'
@@ -509,7 +509,7 @@ jobs:
       github.event_name == 'push' &&
       github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set Cache Key
         id: set-cache-key
         run: echo "CACHE_KEY=$(jq -r '.version' package.json)" >> $GITHUB_ENV
@@ -543,7 +543,7 @@ jobs:
       github.event_name == 'push' &&
       github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Deploy to Production
         if: ${{ matrix.project == '.' }}
         run: |
@@ -565,7 +565,7 @@ jobs:
       github.event_name == 'push' &&
       github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Deploy to Production
         if: ${{ matrix.project == '.' }}
         run: |
@@ -588,10 +588,10 @@ jobs:
     outputs:
       new-tag: ${{ steps.get-new-release.outputs.new-tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22.x'
       - name: Get Current Release
@@ -619,7 +619,7 @@ jobs:
     needs: [deploy-to-production, semantic-release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Get tickets
@@ -708,13 +708,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-to-production, semantic-release]
     if: success()
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22.x'
       - name: Create PR from main to develop
@@ -749,7 +752,7 @@ jobs:
       pull-requests: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Check required secrets
@@ -761,7 +764,7 @@ jobs:
         env:
           LLM_API_TOKEN: ${{ secrets.LLM_API_TOKEN }}
       - name: Generate PR Description
-        uses: virdocssoftware/github-actions/.github/actions/auto-pr-description@v2.26.1
+        uses: robaone/github-actions/.github/actions/auto-pr-description@update-node-version-to-24
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -780,11 +783,11 @@ jobs:
       pull-requests: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Generate Release Description
-        uses: virdocssoftware/github-actions/.github/actions/auto-release-description@v2.26.1
+        uses: robaone/github-actions/.github/actions/auto-release-description@update-node-version-to-24
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
