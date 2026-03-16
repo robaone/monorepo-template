@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# filepath: /Users/anselrobateau/git/rsm-monorepo/create_symlinks.sh
-
 # Define the source files
 CURSOR_RULES_SOURCE="../../.cursorrules"
 WINDSURF_RULES_SOURCE="../../.windsurfrules"

@@ -39,7 +39,7 @@ beforeEach
 export JIRA_CONFIG='{"auth": {"user":"user","token":"token"},"jira": {"domain": "company"}}'
 export MOCK_RESPONSES='[{"stdout": "{\"id\":1234}"},{"stdout":"{\"values\":[]}"},{"stdout":"5"},{"stdout":"2023-04-04"}, {"stdout": "SUCCESS"}]'
 export RELEASE_DATE="2023-04-04"
-export JIRA_PROJECT="BILL"
+export JIRA_PROJECT="PROJ"
 
 # WHEN
 
@@ -48,8 +48,8 @@ ACTUAL_RESPONSE="$($CMD "v1.2.3" "Release description" )"
 # THEN
 
 assert "SUCCESS" "$ACTUAL_RESPONSE"
-assert "-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/BILL
--X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/BILL/version?query=v1.2.3
+assert "-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/PROJ
+-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/PROJ/version?query=v1.2.3
 +%u
 -d +11 days +%Y-%m-%d
 --request POST --url https://company.atlassian.net/rest/api/3/version -u user:token --header Accept: application/json --header Content-Type: application/json --data {
@@ -104,9 +104,9 @@ ACTUAL_RESPONSE="$($CMD "repo-v1.2.3" "New Release description" )"
 assert "Updating the description of release repo-v1.2.3
 Response Body: {\"status\":\"200\",\"content\":\"SUCCESS\"}
 HTTP Status Code: 200" "$ACTUAL_RESPONSE"
-assert '-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/BILL
--X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/BILL/version?query=repo-v1.2.3
--X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/BILL/version?query=repo-v1.2.3
+assert '-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/PROJ
+-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/PROJ/version?query=repo-v1.2.3
+-X GET -H Accept: application/json -u user:token https://company.atlassian.net/rest/api/3/project/PROJ/version?query=repo-v1.2.3
 +%u
 -d +12 days +%Y-%m-%d
 -s -o /dev/fd/63 -w %{http_code} -X PUT -H Accept: application/json -H Content-Type: application/json -u user:token https://company.atlassian.net/rest/api/3/version/ -d {

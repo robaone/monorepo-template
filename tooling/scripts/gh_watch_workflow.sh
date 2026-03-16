@@ -7,7 +7,7 @@ POLL_INTERVAL=5
 # Get the ID of the latest run for the workflow
 get_latest_run_id() {
   local branch_name=$(git branch --show-current)
-  # gh run list -R robaone/source --limit 5 --json createdAt,displayTitle,event,headBranch,headSha,name,number,startedAt,status,updatedAt,workflowName,databaseId | jq '.[] | select(.headBranch == "feature/watch-workflows")'
+  # gh run list -R YOUR_ORG/YOUR_REPO --limit 5 --json createdAt,displayTitle,event,headBranch,headSha,name,number,startedAt,status,updatedAt,workflowName,databaseId | jq '.[] | select(.headBranch == "feature/watch-workflows")'
   local run_list="$(gh run list -R "$REPO" --limit 5 --json createdAt,displayTitle,event,headBranch,headSha,name,number,startedAt,status,updatedAt,workflowName,databaseId | jq '.[] | select(.headBranch == "'${branch_name}'")' | jq --slurp)"
   if [ -z "$run_list" ]; then
     return
@@ -16,7 +16,7 @@ get_latest_run_id() {
 }
 
 view_run_details() {
-    # gh run view 11390165109 -R robaone/source
+    # gh run view 11390165109 -R YOUR_ORG/YOUR_REPO
     gh run view "$1" -R "$2"
 }
 

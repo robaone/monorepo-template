@@ -85,9 +85,20 @@ function create_jira_comment() {
   local jira_api_username="$4"
   local jira_api_token="$5"
   for ticket_id in $ticket_ids; do
-    # If the ticket_id starts with PAR, VIBES or LE, skip it
-    if [[ "$ticket_id" =~ ^PAR-|^VIBES-|^LE- ]]; then
-      continue
+    # Skip ticket IDs matching ignored project key prefixes (comma-separated, e.g. "PAR,VIBES,LE")
+    if [ -n "$JIRA_IGNORED_PROJECT_KEYS" ]; then
+      skip=false
+      IFS=',' read -ra ignored_keys <<< "$JIRA_IGNORED_PROJECT_KEYS"
+      for key in "${ignored_keys[@]}"; do
+        key=$(echo "$key" | tr -d '[:space:]')
+        if [[ "$ticket_id" =~ ^${key}- ]]; then
+          skip=true
+          break
+        fi
+      done
+      if [ "$skip" = true ]; then
+        continue
+      fi
     fi
     local comment_url="https://${jira_domain}/rest/api/2/issue/${ticket_id}/comment"
     local comment_data=$(jq -n --arg body "$message" '{body: $body}')

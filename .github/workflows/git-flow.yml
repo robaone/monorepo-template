@@ -503,7 +503,8 @@ jobs:
       - name: Update uat jira ticket filter
         run: |
           NEXT_VERSION=$(jq -r '.version' package.json)
-          JQL="fixVersion=practice-monorepo-v${NEXT_VERSION}"
+          REPO_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          JQL="fixVersion=${REPO_NAME}-v${NEXT_VERSION}"
           # ./tooling/scripts/jira_update_filter.sh $FILTER_ID "$JQL"
         env:
           FILTER_ID: ${{ secrets.JIRA_UAT_FILTER_ID }}
@@ -703,7 +704,8 @@ jobs:
       - name: Update prod jira ticket filter
         run: |
           NEXT_VERSION=$(jq -r '.version' package.json)
-          JQL="fixVersion=practice-monorepo-v${NEXT_VERSION}"
+          REPO_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          JQL="fixVersion=${REPO_NAME}-v${NEXT_VERSION}"
           # ./tooling/scripts/jira_update_filter.sh $FILTER_ID "$JQL"
         env:
           FILTER_ID: ${{ secrets.JIRA_PROD_FILTER_ID }}

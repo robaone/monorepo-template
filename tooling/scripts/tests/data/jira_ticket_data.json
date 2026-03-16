@@ -8,15 +8,15 @@
       "expand": "operations,versionedRepresentations,editmeta,customfield_11441.properties,changelog,customfield_11402.requestTypePractice,renderedFields",
       "id": "79100",
       "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/79100",
-      "key": "PAR-1906",
+      "key": "PROJ-1906",
       "fields": {
         "statuscategorychangedate": "2024-10-31T15:48:12.001-0500",
         "parent": {
           "id": "72801",
-          "key": "PAR-638",
+          "key": "PROJ-638",
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/72801",
           "fields": {
-            "summary": "Access Pearson Codeless Courseware Integration - Fall 2024",
+            "summary": "Access Third-Party Integration - Fall 2024",
             "status": {
               "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
               "description": "",
@@ -55,7 +55,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12023",
             "id": "12023",
             "description": "Bug fixes, performance improvements, and new features! 🎉",
-            "name": "rsm-monorepo-v1.0.0",
+            "name": "example-monorepo-v1.0.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-26"
@@ -89,7 +89,7 @@
         },
         "customfield_11310": null,
         "labels": [
-          "rush-improvement"
+          "improvement"
         ],
         "customfield_11425": "10359_*:*_1_*:*_13499006_*|*_3_*:*_1_*:*_8549523_*|*_10250_*:*_1_*:*_0_*|*_10002_*:*_1_*:*_253629488_*|*_10202_*:*_1_*:*_243960324",
         "aggregatetimeoriginalestimate": null,
@@ -108,10 +108,10 @@
             },
             "outwardIssue": {
               "id": "77863",
-              "key": "PAR-1705",
+              "key": "PROJ-1705",
               "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/77863",
               "fields": {
-                "summary": "Ensure student opting results in API calls to Pearson",
+                "summary": "Ensure user sync results in API calls to external service",
                 "status": {
                   "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10000",
                   "description": "",
@@ -147,16 +147,16 @@
           }
         ],
         "assignee": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=712020%3A2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79",
-          "accountId": "712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79",
-          "emailAddress": "ben.knear@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000%3Aaaaaaaaa-0000-0000-0000-000000000001",
+          "accountId": "000000:aaaaaaaa-0000-0000-0000-000000000001",
+          "emailAddress": "alice.example@example.com",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/48",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/24",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/16",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:2ec8c1e0-cac0-47b0-9283-e5aa6ab27c79/b0f6c422-030b-4f6a-b43a-61c501b2e788/32"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AE-1.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AE-1.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AE-1.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AE-1.png"
           },
-          "displayName": "Ben Knear",
+          "displayName": "Alice Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
@@ -179,7 +179,7 @@
           {
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/component/10061",
             "id": "10061",
-            "name": "RSM"
+            "name": "Backend"
           }
         ],
         "customfield_11420": null,
@@ -187,32 +187,32 @@
         "customfield_11413": "",
         "aggregatetimeestimate": null,
         "creator": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=712020%3A71fb4a71-8547-4701-a151-cb4b673f6cbf",
-          "accountId": "712020:71fb4a71-8547-4701-a151-cb4b673f6cbf",
-          "emailAddress": "jess.mckean@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000%3Aaaaaaaaa-0000-0000-0000-000000000002",
+          "accountId": "000000:aaaaaaaa-0000-0000-0000-000000000002",
+          "emailAddress": "bob.example@example.com",
           "avatarUrls": {
-            "48x48": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
-            "24x24": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
-            "16x16": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
-            "32x32": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png"
           },
-          "displayName": "Jess McKean",
+          "displayName": "Bob Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
         },
         "subtasks": [],
         "reporter": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=712020%3A71fb4a71-8547-4701-a151-cb4b673f6cbf",
-          "accountId": "712020:71fb4a71-8547-4701-a151-cb4b673f6cbf",
-          "emailAddress": "jess.mckean@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000%3Aaaaaaaaa-0000-0000-0000-000000000002",
+          "accountId": "000000:aaaaaaaa-0000-0000-0000-000000000002",
+          "emailAddress": "bob.example@example.com",
           "avatarUrls": {
-            "48x48": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
-            "24x24": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
-            "16x16": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png",
-            "32x32": "https://secure.gravatar.com/avatar/46e95a6c215ed5bc710c19411ebbdd09?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FJM-4.png"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/BE-2.png"
           },
-          "displayName": "Jess McKean",
+          "displayName": "Bob Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
@@ -223,14 +223,14 @@
         },
         "customfield_11410": null,
         "customfield_11411": null,
-        "customfield_11403": "The first part is about the EntitlementDetailChanged event, and the pearson courseware lambda is not handling that event type.",
+        "customfield_11403": "The event handler lambda is not handling this event type correctly.",
         "customfield_11402": null,
         "progress": {
           "progress": 0,
           "total": 0
         },
         "votes": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1906/votes",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PROJ-1906/votes",
           "votes": 0,
           "hasVoted": false
         },
@@ -248,8 +248,8 @@
         "project": {
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/project/11230",
           "id": "11230",
-          "key": "PAR",
-          "name": "Partner",
+          "key": "PROJ",
+          "name": "Project",
           "projectTypeKey": "software",
           "simplified": false,
           "avatarUrls": {
@@ -273,7 +273,7 @@
         "resolutiondate": "2024-10-31T15:48:11.996-0500",
         "workratio": -1,
         "watches": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1906/watchers",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PROJ-1906/watchers",
           "watchCount": 1,
           "isWatching": false
         },
@@ -295,10 +295,10 @@
         "customfield_11624": null,
         "customfield_11627": null,
         "customfield_11629": null,
-        "customfield_11628": "https://www.google.com",
+        "customfield_11628": "https://www.example.com",
         "updated": "2024-11-15T11:05:52.111-0600",
         "timeoriginalestimate": null,
-        "description": "When a student opts out and into a program or material, we need to ensure we are making the corresponding API calls to Pearson to help ensure appropriate material access for the student. \n\nUntil this is resolve, we should run the opting script daily (or multiple times per day?)",
+        "description": "When a user opts out and into a program or material, we need to ensure we are making the corresponding API calls to the external service to ensure appropriate access.\n\nUntil this is resolved, we should run the sync script daily.",
         "customfield_11100": null,
         "customfield_11583": null,
         "customfield_11586": null,
@@ -313,10 +313,10 @@
         "customfield_10007": [
           {
             "id": 2258,
-            "name": "PAR Sprint 15",
+            "name": "PROJ Sprint 15",
             "state": "closed",
             "boardId": 324,
-            "goal": "1. Product data in 1.0 syncs to 2.0 within a day\n2. Finish the Follett Catalog Audit and file generations\n3. UI Improvements in the 2.0 Pricing Rules pages",
+            "goal": "1. Product data syncs within a day\n2. Finish the catalog audit\n3. UI improvements in the pricing rules pages",
             "startDate": "2024-10-30T17:04:44.208Z",
             "endDate": "2024-11-13T19:18:32.000Z",
             "completeDate": "2024-11-13T17:02:29.471Z"
@@ -324,13 +324,13 @@
         ],
         "customfield_11613": null,
         "customfield_10800": null,
-        "customfield_10008": "PAR-638",
+        "customfield_10008": "PROJ-638",
         "customfield_11616": null,
         "customfield_11615": null,
         "customfield_11618": null,
         "customfield_11617": null,
         "customfield_11619": null,
-        "summary": "Ensure student opting results in API calls to Pearson - University lamdas",
+        "summary": "Ensure user sync results in API calls to external service - lambdas",
         "customfield_11450": null,
         "customfield_11452": null,
         "customfield_11451": null,
@@ -362,15 +362,15 @@
       "expand": "operations,versionedRepresentations,editmeta,customfield_11441.properties,changelog,customfield_11402.requestTypePractice,renderedFields",
       "id": "78830",
       "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78830",
-      "key": "PAR-1856",
+      "key": "PROJ-1856",
       "fields": {
         "statuscategorychangedate": "2024-11-12T04:02:51.824-0600",
         "parent": {
           "id": "78415",
-          "key": "PAR-1889",
+          "key": "PROJ-1889",
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78415",
           "fields": {
-            "summary": "RS 2.0 Product Adoption Match & Pricing Workflows",
+            "summary": "Product Adoption Match & Pricing Workflows v2",
             "status": {
               "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10351",
               "description": "Fulfills the Definition of Ready and is set to be pulled into Sprint.",
@@ -409,7 +409,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12023",
             "id": "12023",
             "description": "Bug fixes, performance improvements, and new features! 🎉",
-            "name": "rsm-monorepo-v1.0.0",
+            "name": "example-monorepo-v1.0.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-26"
@@ -418,7 +418,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12032",
             "id": "12032",
             "description": "🚀 New filters, sorting, bug fixes & performance boosts!",
-            "name": "subgraphs-v1.0.0",
+            "name": "api-service-v1.0.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-19"
@@ -427,7 +427,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12046",
             "id": "12046",
             "description": "Bug fixes, new features, and performance improvements! 🚀",
-            "name": "rsm-monorepo-v1.1.0",
+            "name": "example-monorepo-v1.1.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-26"
@@ -456,9 +456,9 @@
           "id": "2"
         },
         "customfield_10100": "2|hzu1rf:zy6s",
-        "customfield_11310": "* Create the ability to set a default AccessMethod for courseware at the publisher (producer) level\n* In the Create Organization page, add “Default Courseware Access Method” as a new field, just below Fulfillment Price Type. node_modules This field should be required when creating a new organization. node_modules Default it to CODED, and allow the user to either leave that or choose CODELESS instead. node_modules In the Organization Details page, add “Default Courseware Access Method” as a field, just below Fulfillment Price Type node_modules Backfill all existing publisher orgs (producers) with their correct defaults (Sara will get a list from Pub Team)",
+        "customfield_11310": "* Create the ability to set a default access method at the publisher level\n* In the Create Organization page, add a new required field for default access method\n* Default it to the first option and allow the user to choose another\n* In the Organization Details page, add the same field\n* Backfill all existing publisher orgs with their correct defaults",
         "labels": [
-          "rush-improvement"
+          "improvement"
         ],
         "customfield_11425": "10425_*:*_1_*:*_68694547_*|*_3_*:*_1_*:*_343644856_*|*_10250_*:*_1_*:*_0_*|*_10002_*:*_1_*:*_1467978555_*|*_10202_*:*_1_*:*_594897342",
         "aggregatetimeoriginalestimate": null,
@@ -477,10 +477,10 @@
             },
             "outwardIssue": {
               "id": "79351",
-              "key": "PAR-1944",
+              "key": "PROJ-1944",
               "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/79351",
               "fields": {
-                "summary": "Add Default AccessMethod Configurability to Producer (FE Part)",
+                "summary": "Add Default Access Method Configurability to Producer (FE Part)",
                 "status": {
                   "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10002",
                   "description": "",
@@ -516,15 +516,15 @@
           }
         ],
         "assignee": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5f10b3b470b8a90025c21b6b",
-          "accountId": "5f10b3b470b8a90025c21b6b",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000000000000000000003",
+          "accountId": "000000000000000000000003",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/AS-4.png"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/CE-3.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/CE-3.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/CE-3.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/CE-3.png"
           },
-          "displayName": "Andrey Syrisko",
+          "displayName": "Carol Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
@@ -547,7 +547,7 @@
           {
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/component/10061",
             "id": "10061",
-            "name": "RSM"
+            "name": "Backend"
           }
         ],
         "customfield_11420": null,
@@ -555,32 +555,32 @@
         "customfield_11413": "",
         "aggregatetimeestimate": null,
         "creator": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
-          "accountId": "5acfcd6ebb811e2b3af914b1",
-          "emailAddress": "sara.ellenberger@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000000000000000000004",
+          "accountId": "000000000000000000000004",
+          "emailAddress": "dana.example@example.com",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png"
           },
-          "displayName": "Sara Ellenberger",
+          "displayName": "Dana Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
         },
         "subtasks": [],
         "reporter": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
-          "accountId": "5acfcd6ebb811e2b3af914b1",
-          "emailAddress": "sara.ellenberger@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000000000000000000004",
+          "accountId": "000000000000000000000004",
+          "emailAddress": "dana.example@example.com",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png"
           },
-          "displayName": "Sara Ellenberger",
+          "displayName": "Dana Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
@@ -591,15 +591,15 @@
         },
         "customfield_11410": null,
         "customfield_11411": null,
-        "customfield_11403": "* Should we remove the duplicated data from Organization Program?\n* We should check the sync between Products and Adoptions to ensure that we’re copying the access method",
+        "customfield_11403": "* Should we remove the duplicated data from the Organization table?\n* We should check the sync between Products and Adoptions to ensure the access method is copied correctly",
         "customfield_11402": null,
-        "customfield_11405": "As a Publisher, I need to be able to set my default AccessMethod (Coded/Codeless) for all of my Access adoptions so that I don’t need to tell the platform what my preferred access method is for each term or campus or course.",
+        "customfield_11405": "As a Publisher, I need to be able to set my default access method for all of my adoptions so that I don't need to specify it for each term or campus.",
         "progress": {
           "progress": 0,
           "total": 0
         },
         "votes": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1856/votes",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PROJ-1856/votes",
           "votes": 0,
           "hasVoted": false
         },
@@ -617,8 +617,8 @@
         "project": {
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/project/11230",
           "id": "11230",
-          "key": "PAR",
-          "name": "Partner",
+          "key": "PROJ",
+          "name": "Project",
           "projectTypeKey": "software",
           "simplified": false,
           "avatarUrls": {
@@ -642,7 +642,7 @@
         "resolutiondate": "2024-11-12T04:02:51.818-0600",
         "workratio": -1,
         "watches": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1856/watchers",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PROJ-1856/watchers",
           "watchCount": 4,
           "isWatching": false
         },
@@ -682,10 +682,10 @@
         "customfield_10007": [
           {
             "id": 2258,
-            "name": "PAR Sprint 15",
+            "name": "PROJ Sprint 15",
             "state": "closed",
             "boardId": 324,
-            "goal": "1. Product data in 1.0 syncs to 2.0 within a day\n2. Finish the Follett Catalog Audit and file generations\n3. UI Improvements in the 2.0 Pricing Rules pages",
+            "goal": "1. Product data syncs within a day\n2. Finish the catalog audit\n3. UI improvements in the pricing rules pages",
             "startDate": "2024-10-30T17:04:44.208Z",
             "endDate": "2024-11-13T19:18:32.000Z",
             "completeDate": "2024-11-13T17:02:29.471Z"
@@ -693,13 +693,13 @@
         ],
         "customfield_11613": null,
         "customfield_10800": null,
-        "customfield_10008": "PAR-1889",
+        "customfield_10008": "PROJ-1889",
         "customfield_11616": null,
         "customfield_11615": null,
         "customfield_11618": null,
         "customfield_11617": null,
         "customfield_11619": null,
-        "summary": "Add Default AccessMethod Configurability to Producer (BE Part)",
+        "summary": "Add Default Access Method Configurability to Producer (BE Part)",
         "customfield_11450": null,
         "customfield_11452": null,
         "customfield_11451": null,
@@ -731,15 +731,15 @@
       "expand": "operations,versionedRepresentations,editmeta,customfield_11441.properties,changelog,customfield_11402.requestTypePractice,renderedFields",
       "id": "78486",
       "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78486",
-      "key": "PAR-1780",
+      "key": "PROJ-1780",
       "fields": {
         "statuscategorychangedate": "2024-11-14T15:55:34.983-0600",
         "parent": {
           "id": "78441",
-          "key": "PAR-1805",
+          "key": "PROJ-1805",
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/78441",
           "fields": {
-            "summary": "RS 2.0 Catalog Pricing ",
+            "summary": "Catalog Pricing v2",
             "status": {
               "self": "https://your-jira-domain.atlassian.net/rest/api/2/status/10351",
               "description": "Fulfills the Definition of Ready and is set to be pulled into Sprint.",
@@ -778,7 +778,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12023",
             "id": "12023",
             "description": "Bug fixes, performance improvements, and new features! 🎉",
-            "name": "rsm-monorepo-v1.0.0",
+            "name": "example-monorepo-v1.0.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-26"
@@ -787,7 +787,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12032",
             "id": "12032",
             "description": "🚀 New filters, sorting, bug fixes & performance boosts!",
-            "name": "subgraphs-v1.0.0",
+            "name": "api-service-v1.0.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-19"
@@ -796,7 +796,7 @@
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12046",
             "id": "12046",
             "description": "Bug fixes, new features, and performance improvements! 🚀",
-            "name": "rsm-monorepo-v1.1.0",
+            "name": "example-monorepo-v1.1.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-26"
@@ -804,8 +804,8 @@
           {
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/version/12058",
             "id": "12058",
-            "description": "New features, bug fixes, and improvements, including easier course viewing, updated pricing, and smoother user experiences. ",
-            "name": "manager-app-v1.4.0",
+            "description": "New features, bug fixes, and improvements.",
+            "name": "dashboard-app-v1.4.0",
             "archived": false,
             "released": false,
             "releaseDate": "2024-11-26"
@@ -827,7 +827,7 @@
         },
         "lastViewed": null,
         "customfield_11394": null,
-        "customfield_11310": "* Add an option to edit in the 3 dot menus in the price schedules table\n* Allow users to choose that new edit option - they should land on the pricing schedule configuration page as if they’re adding a new schedule, but with the existing parameters filled in\n* Add a Save Changes button\n* Once the user clicks Save Changes, they should be prompted to recalculate\n* All of the same conflict prevention should apply the same as adding new schedules",
+        "customfield_11310": "* Add an option to edit in the 3 dot menus in the price schedules table\n* Allow users to choose that new edit option and land on the pricing schedule configuration page with existing parameters filled in\n* Add a Save Changes button\n* Once the user clicks Save Changes, they should be prompted to recalculate\n* All of the same conflict prevention should apply as when adding new schedules",
         "customfield_10100": "2|hzu1rf:zy6sp",
         "priority": {
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/priority/3",
@@ -836,7 +836,7 @@
           "id": "3"
         },
         "labels": [
-          "rush-improvement"
+          "improvement"
         ],
         "customfield_11425": "10359_*:*_2_*:*_697499948_*|*_3_*:*_1_*:*_784831738_*|*_10360_*:*_2_*:*_17916227_*|*_10250_*:*_1_*:*_0_*|*_10002_*:*_1_*:*_1805180288_*|*_10202_*:*_1_*:*_1034241433",
         "aggregatetimeoriginalestimate": null,
@@ -844,15 +844,15 @@
         "versions": [],
         "issuelinks": [],
         "assignee": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=619798a56d002b006b378d5c",
-          "accountId": "619798a56d002b006b378d5c",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000000000000000000005",
+          "accountId": "000000000000000000000005",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/NM-3.png"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/EE-5.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/EE-5.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/EE-5.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/EE-5.png"
           },
-          "displayName": "Nikita Makeychik",
+          "displayName": "Eve Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
@@ -875,7 +875,7 @@
           {
             "self": "https://your-jira-domain.atlassian.net/rest/api/2/component/10061",
             "id": "10061",
-            "name": "RSM"
+            "name": "Backend"
           }
         ],
         "customfield_11420": null,
@@ -883,32 +883,32 @@
         "customfield_11413": "",
         "aggregatetimeestimate": null,
         "creator": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
-          "accountId": "5acfcd6ebb811e2b3af914b1",
-          "emailAddress": "sara.ellenberger@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000000000000000000004",
+          "accountId": "000000000000000000000004",
+          "emailAddress": "dana.example@example.com",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png"
           },
-          "displayName": "Sara Ellenberger",
+          "displayName": "Dana Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
         },
         "subtasks": [],
         "reporter": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=5acfcd6ebb811e2b3af914b1",
-          "accountId": "5acfcd6ebb811e2b3af914b1",
-          "emailAddress": "sara.ellenberger@example.com",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/user?accountId=000000000000000000000004",
+          "accountId": "000000000000000000000004",
+          "emailAddress": "dana.example@example.com",
           "avatarUrls": {
-            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/48",
-            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/24",
-            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/16",
-            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5acfcd6ebb811e2b3af914b1/08ab72fd-c9f6-4d8c-ab61-4a82521405c0/32"
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/initials/DE-4.png"
           },
-          "displayName": "Sara Ellenberger",
+          "displayName": "Dana Example",
           "active": true,
           "timeZone": "America/Chicago",
           "accountType": "atlassian"
@@ -921,13 +921,13 @@
         "customfield_11411": null,
         "customfield_11403": null,
         "customfield_11402": null,
-        "customfield_11405": "As a member of the Pub Team, I want to be able to edit existing Price Schedules so that I don’t have to completely delete and rebuild a schedule if I need to make a small change.",
+        "customfield_11405": "As a member of the team, I want to be able to edit existing price schedules so that I don't have to completely delete and rebuild a schedule for small changes.",
         "progress": {
           "progress": 0,
           "total": 0
         },
         "votes": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1780/votes",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PROJ-1780/votes",
           "votes": 0,
           "hasVoted": false
         },
@@ -945,8 +945,8 @@
         "project": {
           "self": "https://your-jira-domain.atlassian.net/rest/api/2/project/11230",
           "id": "11230",
-          "key": "PAR",
-          "name": "Partner",
+          "key": "PROJ",
+          "name": "Project",
           "projectTypeKey": "software",
           "simplified": false,
           "avatarUrls": {
@@ -970,7 +970,7 @@
         "resolutiondate": "2024-11-14T15:55:34.974-0600",
         "workratio": -1,
         "watches": {
-          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PAR-1780/watchers",
+          "self": "https://your-jira-domain.atlassian.net/rest/api/2/issue/PROJ-1780/watchers",
           "watchCount": 1,
           "isWatching": false
         },
@@ -988,7 +988,7 @@
         "customfield_11623": null,
         "customfield_11589": null,
         "customfield_11622": null,
-        "customfield_11625": "Internal users will now be able to edit existing pricing schedules in 2.0",
+        "customfield_11625": "Internal users will now be able to edit existing pricing schedules",
         "customfield_11624": null,
         "customfield_11627": [
           {
@@ -1016,35 +1016,35 @@
         "customfield_10007": [
           {
             "id": 2241,
-            "name": "PAR Sprint 14",
+            "name": "PROJ Sprint 14",
             "state": "closed",
             "boardId": 324,
-            "goal": "Truely, for reals, N'Sync, 2.0 Pricing Controls, Catalog data changes.",
+            "goal": "Complete pricing controls and catalog data changes.",
             "startDate": "2024-10-16T16:42:00.795Z",
             "endDate": "2024-10-30T18:56:51.000Z",
             "completeDate": "2024-10-30T15:22:28.851Z"
           },
           {
             "id": 2258,
-            "name": "PAR Sprint 15",
+            "name": "PROJ Sprint 15",
             "state": "closed",
             "boardId": 324,
-            "goal": "1. Product data in 1.0 syncs to 2.0 within a day\n2. Finish the Follett Catalog Audit and file generations\n3. UI Improvements in the 2.0 Pricing Rules pages",
+            "goal": "1. Product data syncs within a day\n2. Finish the catalog audit\n3. UI improvements in the pricing rules pages",
             "startDate": "2024-10-30T17:04:44.208Z",
             "endDate": "2024-11-13T19:18:32.000Z",
             "completeDate": "2024-11-13T17:02:29.471Z"
           },
           {
             "id": 2261,
-            "name": "PAR Sprint 16",
+            "name": "PROJ Sprint 16",
             "state": "active",
             "boardId": 324,
-            "goal": "1. Complete sync\n2. Complete Follett Audit",
+            "goal": "1. Complete sync\n2. Complete catalog audit",
             "startDate": "2024-11-13T17:59:37.750Z",
             "endDate": "2024-11-27T20:30:00.000Z"
           }
         ],
-        "customfield_10008": "PAR-1805",
+        "customfield_10008": "PROJ-1805",
         "customfield_11613": null,
         "customfield_10800": null,
         "customfield_11616": null,
@@ -1052,7 +1052,7 @@
         "customfield_11618": null,
         "customfield_11617": null,
         "customfield_11619": null,
-        "summary": "Allow Editability of 2.0 Pricing Schedules",
+        "summary": "Allow Editability of Pricing Schedules",
         "customfield_11450": null,
         "customfield_11452": null,
         "customfield_11451": null,

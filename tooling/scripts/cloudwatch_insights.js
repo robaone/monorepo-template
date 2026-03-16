@@ -447,10 +447,10 @@ Examples:                   # Last 24 hours, limit 100
   ${process.argv[1]} my-lambda '@message like /ERROR/'    # Last 24 hours, limit 100
   ${process.argv[1]} my-lambda '@message like /ERROR/' --raw
   ${process.argv[1]} my-lambda '@message like /ERROR/' --asc
-  ${process.argv[1]} university-sync-partner-eligibility --university-id 190 --term-id 1730
-  ${process.argv[1]} university-sync-partner-eligibility --user-id 6700214 --start-date 2025-08-05 --end-date 2025-08-06
-  ${process.argv[1]} university-sync-partner-eligibility --university-id 190 --start-date 2025-08-05 --end-date 2025-08-06 --output-file results.json
-  ${process.argv[1]} university-sync-partner-eligibility --university-id 190 --limit 50000 --start-date 2025-04-01 --end-date 2025-08-12 --output-file all-results.json
+  ${process.argv[1]} my-sync-lambda --university-id 123 --term-id 456
+  ${process.argv[1]} my-sync-lambda --user-id 789 --start-date 2025-08-05 --end-date 2025-08-06
+  ${process.argv[1]} my-sync-lambda --university-id 123 --start-date 2025-08-05 --end-date 2025-08-06 --output-file results.json
+  ${process.argv[1]} my-sync-lambda --university-id 123 --limit 50000 --start-date 2025-04-01 --end-date 2025-08-12 --output-file all-results.json
   ${process.argv[1]} my-lambda 'error' --start-date 2025-08-05T10:30:00Z --end-date 2025-08-05T15:45:00Z
   ${process.argv[1]} my-lambda 'error' --start-date 2025-08-05T10:30:00.000Z --end-date 2025-08-05T15:45:00.000Z
 

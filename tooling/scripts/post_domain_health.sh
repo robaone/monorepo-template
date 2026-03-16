@@ -10,13 +10,18 @@ if [ -z "$domain" ] || [ -z "$status" ]; then
   exit 1
 fi
 
+if [ -z "$DOMAIN_HEALTH_WEBHOOK_URL" ]; then
+  echo "DOMAIN_HEALTH_WEBHOOK_URL is required"
+  exit 1
+fi
+
 # Construct JSON payload properly
 json_payload=$(cat <<EOF
 {"domain": "$domain", "status": "$status"}
 EOF
 )
 
-response="$(curl -X POST "https://script.google.com/macros/s/AKfycbzTnFBzPHL2eGVOE7wZm9b0PV1-tE2itBs9A3AyGEh3-KmdgzCbeB0d22DokVdnACI8/exec" \
+response="$(curl -X POST "$DOMAIN_HEALTH_WEBHOOK_URL" \
   -H "Content-Type: application/json" \
   -d "$json_payload" 2> /dev/null)"
 

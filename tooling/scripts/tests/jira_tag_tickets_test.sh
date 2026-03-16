@@ -74,6 +74,7 @@ echo Scenario: One Ticket
 
 # GIVEN
 
+export REPOSITORY=my-monorepo
 export MOCK_ARGUMENT_FILE=$(mktemp)
 export MOCK_RESPONSES='[{"stdout":"develop"},{"stdout":"1.1.0"},{},{"stdout":"{\"url\":\"https://company.atlassian.net/browse/CC-1234\"}"},{"stdout":"Release created!"},{"stdout":"Updated"}]'
 export MOCK_TRACKING_FILE=$(mktemp)
@@ -91,13 +92,14 @@ ACTUAL_RESULT=$($CMD)
 
 assert_equals "Tickets found: CC-1234
 Release created!
-Tag CC-1234 with practice-monorepo-v1.1.0
+Tag CC-1234 with my-monorepo-v1.1.0
 Updated" "$ACTUAL_RESULT"
 
 echo Scenario: Two Tickets
 
 # GIVEN
 
+export REPOSITORY=my-monorepo
 export MOCK_ARGUMENT_FILE=$(mktemp)
 export MOCK_RESPONSES='[{"stdout":"develop"},{"stdout":"1.1.0"},{},{"stdout":"{\"url\":\"https://company.atlassian.net/browse/CC-1234\"}\n{\"url\":\"https://company.atlassian.net/browse/BB-9999\"}"},{"stdout":"Release created!"},{"stdout":"Updated"},{"stdout":"Release created!"},{"stdout":"Updated"}]'
 export MOCK_TRACKING_FILE=$(mktemp)
@@ -114,16 +116,17 @@ ACTUAL_RESULT=$($CMD)
 
 assert_equals "Tickets found: BB-9999 CC-1234
 Release created!
-Tag BB-9999 with practice-monorepo-v1.1.0
+Tag BB-9999 with my-monorepo-v1.1.0
 Updated
 Release created!
-Tag CC-1234 with practice-monorepo-v1.1.0
+Tag CC-1234 with my-monorepo-v1.1.0
 Updated" "$ACTUAL_RESULT"
 
 echo Scenario: Release already exists
 
 # GIVEN
 
+export REPOSITORY=my-monorepo
 export MOCK_ARGUMENT_FILE=$(mktemp)
 export MOCK_RESPONSES='[{"stdout":"develop"},{"stdout":"1.1.0"},{"stdout":"origin/release/v1.1.0"},{"stdout":"{\"url\":\"https://company.atlassian.net/browse/CC-1234\"}\n{\"url\":\"https://company.atlassian.net/browse/BB-9999\"}"},{"stdout":"Release created!"},{"stdout":"Updated"},{"stdout":"Release exists!"},{"stdout":"Updated"}]'
 export MOCK_TRACKING_FILE=$(mktemp)
@@ -140,10 +143,10 @@ ACTUAL_RESULT=$($CMD)
 
 assert_equals "Tickets found: BB-9999 CC-1234
 Release created!
-Tag BB-9999 with practice-monorepo-v1.2.0
+Tag BB-9999 with my-monorepo-v1.2.0
 Updated
 Release exists!
-Tag CC-1234 with practice-monorepo-v1.2.0
+Tag CC-1234 with my-monorepo-v1.2.0
 Updated" "$ACTUAL_RESULT"
 
 echo Scenario: One Ticket and Repository has upper case letters

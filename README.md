@@ -1,4 +1,4 @@
-# practice-monorepo
+# monorepo-template
 
 Repo to be shared across teams for storing all code.
 
@@ -15,12 +15,12 @@ The monorepo uses [mise](https://mise.jdx.dev) to manage environment dependencie
 
 Then for whichever domain you are working on, `cd` into that directory and run `mise run init` to install the dependencies.
 
-### Tunnel9
+### Database Tunneling
 
-The monorepo uses [tunnel9](https://github.com/sio2boss/tunnel9) to manage SSH tunnels to the database.
+The monorepo uses an SSH tunnel manager to connect to remote databases locally. Configure your preferred tunneling tool (e.g. SSH port forwarding, a tunnel manager CLI) and wire it up via the `mise` tasks below.
 
-1. `mise run tunnel9-init` to install the tunnel9 binary and all relevant dependencies
-2. `mise run tunnel9` to start the tunnel9 services. From it, you can toggle tunnels on and off. If you ctrl-c or press `q` to quit the "UI", the tunnels will be closed.
+1. `mise run tunnel-init` to install the tunnel binary and all relevant dependencies
+2. `mise run tunnel` to start the tunnel services. From it, you can toggle tunnels on and off. If you ctrl-c or press `q` to quit the "UI", the tunnels will be closed.
 
 ### Tooling
 
@@ -57,20 +57,21 @@ To run the lambdas in a **TypeScript** domain:
 cd domains/delivery-ts
 # Build the code
 npm run build
-# Ensure you have an active session, since this will likely require pulling secrets from SecretsManager
-aws_dev_mfa 123456
+# Ensure you have an active AWS session — this will likely require pulling secrets from SecretsManager.
+# Authenticate using your preferred MFA method, for example:
+aws sts get-session-token --serial-number arn:aws:iam::<ACCOUNT_ID>:mfa/<MFA_DEVICE> --token-code <MFA_CODE>
 # Replace the <lambda-name> with the name based on what is in the package.json
 npm run local:<lambda-name>
 ```
 
 ### Run All Lambdas in a Domain
 
-When running the lambdas for a domain, first consider which database you intend to use. If using the dev environment database, you will need to have an active tunnel9 connection. To use the testbed database, you'll need to run it locally.
+When running the lambdas for a domain, first consider which database you intend to use. If using the dev environment database, you will need to have an active tunnel connection. To use the testbed database, you'll need to run it locally.
 
 > WARNING: Not all domains currently support this.
 
 ```sh
-cd domains/product-ts
+cd domains/<your-domain>
 mise run lambdas-local-[local|dev]
 ```
 

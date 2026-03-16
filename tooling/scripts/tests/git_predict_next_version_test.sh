@@ -77,13 +77,13 @@ Date: my date
 
      ci: My squashed commit
     
-    * feat: 🎸 BILL-213 add script for predicting next version with tests
+    * feat: 🎸 PROJ-213 add script for predicting next version with tests
     
-    * test: 💍 BILL-213 setup unit tests
+    * test: 💍 PROJ-213 setup unit tests
     
-    * ci: 🎡 BILL-213 add dependency in workflow
+    * ci: 🎡 PROJ-213 add dependency in workflow
     
-    * fix: 🐛 BILL-213 fix broken tests
+    * fix: 🐛 PROJ-213 fix broken tests
 
 '
 EXPECTED_VERSION=1.23.5
@@ -124,13 +124,13 @@ Date: my date
 
      fix: My squashed commit
     
-    * feat: 🎸 BILL-213 add script for predicting next version with tests
+    * feat: 🎸 PROJ-213 add script for predicting next version with tests
     
-    * test: 💍 BILL-213 setup unit tests
+    * test: 💍 PROJ-213 setup unit tests
     
-    * ci: 🎡 BILL-213 add dependency in workflow
+    * ci: 🎡 PROJ-213 add dependency in workflow
     
-    * fix: 🐛 BILL-213 fix broken tests
+    * fix: 🐛 PROJ-213 fix broken tests
 
 '
 EXPECTED_VERSION=1.23.6

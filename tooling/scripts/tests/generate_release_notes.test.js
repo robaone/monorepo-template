@@ -147,17 +147,17 @@ describe('generateReleaseNotes', () => {
         it('should categorize as improvement', async () => {
             llmClient.sendRequest.mockResolvedValue({ categories: [
                 {
-                    ticket_id: 'PAR-1906',
+                    ticket_id: 'PROJ-1906',
                     category: 'Improvement'
                 },
                 {
-                    ticket_id: 'PAR-1856',
+                    ticket_id: 'PROJ-1856',
                     category: 'Improvement'
                 }
             ]});
             await categorizationProvider.categorizeTickets();
-            const result1 = categorizationProvider.isImprovement('PAR-1906', 'Epic');
-            const result2 = categorizationProvider.isImprovement('PAR-1856', 'Story');
+            const result1 = categorizationProvider.isImprovement('PROJ-1906', 'Epic');
+            const result2 = categorizationProvider.isImprovement('PROJ-1856', 'Story');
             expect(result1).toBe(true);
             expect(result2).toBe(true);
         });
@@ -169,8 +169,8 @@ describe('generateReleaseNotes', () => {
         });
         it('should categorize as feature and improvement', async () => {
             const data = [
-                { key: 'PAR-1906', summary: 'performance improvement', type: 'Epic' },
-                { key: 'PAR-1856', summary: 'create a class', type: 'Story' },
+                { key: 'PROJ-1906', summary: 'performance improvement', type: 'Epic' },
+                { key: 'PROJ-1856', summary: 'create a class', type: 'Story' },
             ];
             const result = await client.sendRequest(data);
             expect(result.categories.length).toBe(2);
@@ -185,12 +185,12 @@ describe('generateReleaseNotes', () => {
             client = new GeminiClient(process.env.GEMINI_API_KEY, fetchMock);
         });
         it('should categorize as feature and improvement', async () => {
-            const expectedCategories = { categories: [{ ticket_id: 'PAR-1906', category: 'Improvement' }, { ticket_id: 'PAR-1856', category: 'Feature' }] };
+            const expectedCategories = { categories: [{ ticket_id: 'PROJ-1906', category: 'Improvement' }, { ticket_id: 'PROJ-1856', category: 'Feature' }] };
             const expectedResponse = { candidates: [{ content: { parts: [{ text: JSON.stringify(expectedCategories) }] }}] };
             fetchMock.mockResolvedValue(expectedResponse);
             const data = [
-                { key: 'PAR-1906', summary: 'performance improvement', type: 'Epic' },
-                { key: 'PAR-1856', summary: 'create a class', type: 'Story' },
+                { key: 'PROJ-1906', summary: 'performance improvement', type: 'Epic' },
+                { key: 'PROJ-1856', summary: 'create a class', type: 'Story' },
             ];
             const result = await client.sendRequest(data);
             expect(result.categories.length).toBe(2);

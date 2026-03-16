@@ -46,7 +46,7 @@ done <<< "$HASHES"
 function getTicketInfo() {
   ticketId=$1
   if [[ "$ticketId" =~ ^ISSUE-[0-9]+$ ]]; then
-    echo -n "\"url\":\"https://github.com/robaone/source/issues/$(echo $ticketId | sed 's/ISSUE-//')\""
+    echo -n "\"url\":\"https://github.com/${GITHUB_REPOSITORY_OWNER:-YOUR_ORG}/${GITHUB_REPOSITORY_NAME:-YOUR_REPO}/issues/$(echo $ticketId | sed 's/ISSUE-//')\""
   else
     TICKET_INFO=$($CURL_CMD \
       -X GET \
