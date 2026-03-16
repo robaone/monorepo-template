@@ -91,7 +91,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    uses: YOUR_ORG/github-actions/.github/workflows/validate-pr.yml@main
+    uses: virdocssoftware/github-actions/.github/workflows/validate-pr.yml@v2.26.1
     with:
       pr_title: ${{ github.event.pull_request.title }}
       pr_branch: ${{ github.event.pull_request.head.ref }}
@@ -148,20 +148,12 @@ jobs:
       - name: Announce Deployment
         run: echo "This will be deployed"
 
-  wizcli-scanner:
-    if: |
-      false && (github.event.pull_request.draft == false || contains(github.event.pull_request.labels.*.name, 'deploy') || contains(github.event.pull_request.labels.*.name, 'test'))
-    uses: YOUR_ORG/github-actions/.github/workflows/wizcli-scanner.yml@v2
-    secrets:
-      WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
-      WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
-
   static-analysis:
     name: Static Analysis
     needs: [initialize]
     runs-on: ubuntu-latest
     steps:
-      - uses: YOUR_ORG/github-actions/.github/actions/static-analysis@main
+      - uses: virdocssoftware/github-actions/.github/actions/static-analysis@v2.26.1
         with:
           layer-package-json: 'domains/layer-nodejs-22x/package.json'
           domains: '${{ needs.initialize.outputs.matrix }}'
@@ -444,12 +436,12 @@ jobs:
           echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
           echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - uses: YOUR_ORG/github-actions/.github/actions/llm@main
+      - uses: virdocssoftware/github-actions/.github/actions/llm@v2.26.1
         id: llm_action
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
-      - uses: YOUR_ORG/github-actions/.github/actions/tag-jira-release@main
+      - uses: virdocssoftware/github-actions/.github/actions/tag-jira-release@v2.26.1
         with:
           description: ${{ steps.llm_action.outputs.response }}
           target-branch: 'origin/main'
@@ -486,12 +478,12 @@ jobs:
           echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
           echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - uses: YOUR_ORG/github-actions/.github/actions/llm@main
+      - uses: virdocssoftware/github-actions/.github/actions/llm@v2.26.1
         id: llm_action
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
-      - uses: YOUR_ORG/github-actions/.github/actions/tag-jira-release@main
+      - uses: virdocssoftware/github-actions/.github/actions/tag-jira-release@v2.26.1
         with:
           description: ${{ steps.llm_action.outputs.response }}
           target-branch: 'origin/main'
@@ -760,8 +752,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Check required secrets
+        run: |
+          if [ -z "$LLM_API_TOKEN" ]; then
+            echo "::error::Missing required secret: LLM_API_TOKEN. Go to Settings > Secrets and variables > Actions and add LLM_API_TOKEN with your Gemini API key."
+            exit 1
+          fi
+        env:
+          LLM_API_TOKEN: ${{ secrets.LLM_API_TOKEN }}
       - name: Generate PR Description
-        uses: YOUR_ORG/github-actions/.github/actions/auto-pr-description@main
+        uses: virdocssoftware/github-actions/.github/actions/auto-pr-description@v2.26.1
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -784,9 +784,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Generate Release Description
-        uses: YOUR_ORG/github-actions/.github/actions/auto-release-description@main
+        uses: virdocssoftware/github-actions/.github/actions/auto-release-description@v2.26.1
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
-          github-token: ${{ secrets.LLM_API_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.pull_request.number }}
           jira-ticket-url-prefix: 'https://${{ secrets.JIRA_DOMAIN }}/browse/'
