@@ -91,7 +91,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    uses: virdocssoftware/github-actions/.github/workflows/validate-pr.yml@v2.26.1
+    uses: robaone/github-actions/.github/workflows/validate-pr.yml@update-node-version-to-24
     with:
       pr_title: ${{ github.event.pull_request.title }}
       pr_branch: ${{ github.event.pull_request.head.ref }}
@@ -153,7 +153,7 @@ jobs:
     needs: [initialize]
     runs-on: ubuntu-latest
     steps:
-      - uses: virdocssoftware/github-actions/.github/actions/static-analysis@v2.26.1
+      - uses: robaone/github-actions/.github/actions/static-analysis@update-node-version-to-24
         with:
           layer-package-json: 'domains/layer-nodejs-22x/package.json'
           domains: '${{ needs.initialize.outputs.matrix }}'
@@ -436,12 +436,12 @@ jobs:
           echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
           echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - uses: virdocssoftware/github-actions/.github/actions/llm@v2.26.1
+      - uses: robaone/github-actions/.github/actions/llm@update-node-version-to-24
         id: llm_action
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
-      - uses: virdocssoftware/github-actions/.github/actions/tag-jira-release@v2.26.1
+      - uses: robaone/github-actions/.github/actions/tag-jira-release@update-node-version-to-24
         with:
           description: ${{ steps.llm_action.outputs.response }}
           target-branch: 'origin/main'
@@ -478,12 +478,12 @@ jobs:
           echo "LLM_PROMPT<<EOF" >> $GITHUB_OUTPUT
           echo "$LLM_PROMPT" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-      - uses: virdocssoftware/github-actions/.github/actions/llm@v2.26.1
+      - uses: robaone/github-actions/.github/actions/llm@update-node-version-to-24
         id: llm_action
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           prompt: ${{ steps.create_prompt.outputs.LLM_PROMPT }}
-      - uses: virdocssoftware/github-actions/.github/actions/tag-jira-release@v2.26.1
+      - uses: robaone/github-actions/.github/actions/tag-jira-release@update-node-version-to-24
         with:
           description: ${{ steps.llm_action.outputs.response }}
           target-branch: 'origin/main'
@@ -764,7 +764,7 @@ jobs:
         env:
           LLM_API_TOKEN: ${{ secrets.LLM_API_TOKEN }}
       - name: Generate PR Description
-        uses: virdocssoftware/github-actions/.github/actions/auto-pr-description@v2.26.1
+        uses: robaone/github-actions/.github/actions/auto-pr-description@update-node-version-to-24
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -787,7 +787,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Generate Release Description
-        uses: virdocssoftware/github-actions/.github/actions/auto-release-description@v2.26.1
+        uses: robaone/github-actions/.github/actions/auto-release-description@update-node-version-to-24
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
