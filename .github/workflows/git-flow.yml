@@ -787,6 +787,6 @@ jobs:
         uses: virdocssoftware/github-actions/.github/actions/auto-release-description@v2.26.1
         with:
           gemini-api-key: ${{ secrets.LLM_API_TOKEN }}
-          github-token: ${{ secrets.LLM_API_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           pr-number: ${{ github.event.pull_request.number }}
           jira-ticket-url-prefix: 'https://${{ secrets.JIRA_DOMAIN }}/browse/'
